@@ -102,7 +102,6 @@ export const PORTFOLIO_DATA: UserData = {
     "Full-stack Web Development",
     "VR/AR Technology",
     "AI & Machine Learning",
-    "Cybersecurity & CTF",
     "Open Source Contributions"
   ],
   hobbies: [
