@@ -67,7 +67,7 @@ const App: React.FC = () => {
           <div className="inline-block px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 animate-fade-in-up">
             <span className="text-accent font-medium">Hello, I'm</span>
           </div>
-          <h1 className="text-4xl md:text-8xl font-display font-bold mb-6 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-display font-bold mb-6 tracking-tight">
             <span className="text-white">{PORTFOLIO_DATA.name}</span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
