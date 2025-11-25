@@ -5,8 +5,8 @@ export const PORTFOLIO_DATA: UserData = {
   age: 19,
   location: "Chennai, Tamil Nadu, India",
   email: "jefftamizh@gmail.com",
-  linkedin: "linkedin.com/in/tamizharasan-r-a6931828a",
-  github: "github.com/Tamizh019",
+  linkedin: "https://www.linkedin.com/in/tamizharasan-r-a6931828a",
+  github: "https://github.com/Tamizh019",
   role: "CS Engineer & Full-Stack Developer",
   bio: "I am a 19-year-old Computer Science Engineering student specializing in Artificial Intelligence at SIST, Chennai. Passionate about building scalable, user-centric digital experiences, I bridge the gap between complex backend logic and beautiful frontend designs. Currently actively preparing for placements.",
   education: [
