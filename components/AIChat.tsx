@@ -47,9 +47,8 @@ const AIChat: React.FC = () => {
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 ${
-          isOpen ? 'bg-red-500 rotate-90' : 'bg-gradient-to-r from-accent to-accent2'
-        } text-white`}
+        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 ${isOpen ? 'bg-red-500 rotate-90' : 'bg-gradient-to-r from-accent to-accent2'
+          } text-white`}
         aria-label="Toggle Chat"
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
@@ -57,7 +56,7 @@ const AIChat: React.FC = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-full max-w-sm bg-secondary/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[500px] animate-fade-in-up">
+        <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-6 z-40 w-auto md:w-96 bg-secondary/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[500px] animate-fade-in-up">
           {/* Header */}
           <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-4 border-b border-white/10 flex items-center gap-3">
             <div className="bg-accent/20 p-2 rounded-lg">
@@ -76,17 +75,15 @@ const AIChat: React.FC = () => {
                 key={idx}
                 className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  msg.role === 'user' ? 'bg-indigo-500' : 'bg-accent/20'
-                }`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-indigo-500' : 'bg-accent/20'
+                  }`}>
                   {msg.role === 'user' ? <User size={14} /> : <Bot size={14} className="text-accent" />}
                 </div>
                 <div
-                  className={`p-3 rounded-2xl max-w-[80%] text-sm ${
-                    msg.role === 'user'
+                  className={`p-3 rounded-2xl max-w-[80%] text-sm ${msg.role === 'user'
                       ? 'bg-indigo-600 text-white rounded-tr-none'
                       : 'bg-slate-700/50 text-slate-200 rounded-tl-none border border-white/5'
-                  }`}
+                    }`}
                 >
                   {msg.text}
                 </div>

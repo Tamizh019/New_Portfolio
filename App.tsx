@@ -25,7 +25,7 @@ const App: React.FC = () => {
   ];
 
   const getIconForCategory = (category: string) => {
-    switch(category.toLowerCase()) {
+    switch (category.toLowerCase()) {
       case 'frontend': return <Layout className="text-accent" />;
       case 'backend': return <Database className="text-accent2" />;
       case 'languages': return <Code2 className="text-purple-400" />;
@@ -39,17 +39,16 @@ const App: React.FC = () => {
       <ParticleBackground />
 
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${
-        scrolled ? 'bg-primary/80 backdrop-blur-lg border-b border-white/10 py-4' : 'bg-transparent py-6'
-      }`}>
+      <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-primary/80 backdrop-blur-lg border-b border-white/10 py-4' : 'bg-transparent py-6'
+        }`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <a href="#" className="text-2xl font-display font-bold bg-gradient-to-r from-accent to-accent2 bg-clip-text text-transparent">
             TAMIZH.dev
           </a>
           <div className="hidden md:flex gap-8">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
+              <a
+                key={link.name}
                 href={link.href}
                 className="text-sm font-medium text-slate-400 hover:text-accent transition-colors relative group"
                 onClick={() => setActiveSection(link.name.toLowerCase())}
@@ -68,14 +67,14 @@ const App: React.FC = () => {
           <div className="inline-block px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 animate-fade-in-up">
             <span className="text-accent font-medium">Hello, I'm</span>
           </div>
-          <h1 className="text-5xl md:text-8xl font-display font-bold mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-8xl font-display font-bold mb-6 tracking-tight">
             <span className="text-white">{PORTFOLIO_DATA.name}</span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-             Full-Stack Developer & AI Enthusiast specializing in building
+            Full-Stack Developer & AI Enthusiast specializing in building
             <span className="text-accent"> futuristic</span>, scalable digital experiences.
           </p>
-          
+
           <div className="flex justify-center gap-4 mb-12">
             <a href={PORTFOLIO_DATA.github} target="_blank" rel="noreferrer" className="p-3 rounded-full bg-slate-800/50 hover:bg-accent hover:text-primary transition-all duration-300 border border-white/10 hover:scale-110">
               <Github size={24} />
@@ -92,7 +91,7 @@ const App: React.FC = () => {
             Scroll Down <ChevronDown size={16} />
           </a>
         </div>
-        
+
         {/* Background Glows */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px] -z-10 animate-blob"></div>
         <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] -z-10 animate-blob animation-delay-2000"></div>
@@ -124,40 +123,40 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="w-full md:w-1/2">
-               <h2 className="text-4xl font-display font-bold mb-8 text-white">Education & <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent2">Experience</span></h2>
-               <div className="space-y-8">
-                 {PORTFOLIO_DATA.education.map((edu, idx) => (
-                   <div key={idx} className="flex gap-4">
-                     <div className="flex flex-col items-center">
-                       <div className="w-4 h-4 rounded-full bg-accent"></div>
-                       <div className="w-0.5 h-full bg-slate-800 my-2"></div>
-                     </div>
-                     <div>
-                       <h4 className="text-xl font-bold text-white">{edu.institution}</h4>
-                       <p className="text-accent text-sm mb-1">{edu.degree}</p>
-                       <p className="text-slate-400 text-sm mb-2">{edu.year}</p>
-                       <p className="text-slate-500 text-sm">{edu.details}</p>
-                     </div>
-                   </div>
-                 ))}
-                 {PORTFOLIO_DATA.experience.map((exp, idx) => (
-                    <div key={idx} className="flex gap-4">
-                      <div className="flex flex-col items-center">
-                        <div className="w-4 h-4 rounded-full bg-accent2"></div>
-                        <div className="w-0.5 h-full bg-slate-800 my-2"></div>
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-bold text-white">{exp.role}</h4>
-                        <p className="text-accent2 text-sm mb-1">{exp.company} - {exp.project}</p>
-                        <ul className="list-disc list-inside text-slate-500 text-sm mt-2 space-y-1">
-                          {exp.responsibilities.map((res, i) => (
-                            <li key={i}>{res}</li>
-                          ))}
-                        </ul>
-                      </div>
+              <h2 className="text-4xl font-display font-bold mb-8 text-white">Education & <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent2">Experience</span></h2>
+              <div className="space-y-8">
+                {PORTFOLIO_DATA.education.map((edu, idx) => (
+                  <div key={idx} className="flex gap-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-4 h-4 rounded-full bg-accent"></div>
+                      <div className="w-0.5 h-full bg-slate-800 my-2"></div>
                     </div>
-                 ))}
-               </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-white">{edu.institution}</h4>
+                      <p className="text-accent text-sm mb-1">{edu.degree}</p>
+                      <p className="text-slate-400 text-sm mb-2">{edu.year}</p>
+                      <p className="text-slate-500 text-sm">{edu.details}</p>
+                    </div>
+                  </div>
+                ))}
+                {PORTFOLIO_DATA.experience.map((exp, idx) => (
+                  <div key={idx} className="flex gap-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-4 h-4 rounded-full bg-accent2"></div>
+                      <div className="w-0.5 h-full bg-slate-800 my-2"></div>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-white">{exp.role}</h4>
+                      <p className="text-accent2 text-sm mb-1">{exp.company} - {exp.project}</p>
+                      <ul className="list-disc list-inside text-slate-500 text-sm mt-2 space-y-1">
+                        {exp.responsibilities.map((res, i) => (
+                          <li key={i}>{res}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -201,10 +200,10 @@ const App: React.FC = () => {
                     FEATURED
                   </div>
                 )}
-                
+
                 {/* Decoration for cards */}
                 <div className="h-2 w-full bg-gradient-to-r from-accent to-accent2"></div>
-                
+
                 <div className="p-8 flex flex-col flex-grow">
                   <div className="mb-6">
                     <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-accent transition-colors">{project.title}</h3>
@@ -212,14 +211,14 @@ const App: React.FC = () => {
                   </div>
 
                   <div className="mb-6 flex-grow">
-                     <ul className="space-y-2">
-                       {project.features.slice(0, 3).map((feature, fIdx) => (
-                         <li key={fIdx} className="flex items-start gap-2 text-sm text-slate-500">
-                           <span className="mt-1.5 w-1 h-1 rounded-full bg-accent2 flex-shrink-0"></span>
-                           {feature}
-                         </li>
-                       ))}
-                     </ul>
+                    <ul className="space-y-2">
+                      {project.features.slice(0, 3).map((feature, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-2 text-sm text-slate-500">
+                          <span className="mt-1.5 w-1 h-1 rounded-full bg-accent2 flex-shrink-0"></span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -257,23 +256,23 @@ const App: React.FC = () => {
             <div>
               <h3 className="text-2xl font-display font-bold text-white mb-6">Technical Interests</h3>
               <div className="space-y-4">
-                 {PORTFOLIO_DATA.interests.map((interest, idx) => (
-                   <div key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/30 border border-white/5">
-                     <div className="w-2 h-2 rounded-full bg-accent"></div>
-                     <span className="text-slate-300">{interest}</span>
-                   </div>
-                 ))}
+                {PORTFOLIO_DATA.interests.map((interest, idx) => (
+                  <div key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/30 border border-white/5">
+                    <div className="w-2 h-2 rounded-full bg-accent"></div>
+                    <span className="text-slate-300">{interest}</span>
+                  </div>
+                ))}
               </div>
             </div>
             <div>
               <h3 className="text-2xl font-display font-bold text-white mb-6">Hobbies & Activities</h3>
               <div className="space-y-4">
-                 {PORTFOLIO_DATA.hobbies.map((hobby, idx) => (
-                   <div key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/30 border border-white/5">
-                     <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                     <span className="text-slate-300">{hobby}</span>
-                   </div>
-                 ))}
+                {PORTFOLIO_DATA.hobbies.map((hobby, idx) => (
+                  <div key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/30 border border-white/5">
+                    <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                    <span className="text-slate-300">{hobby}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -287,7 +286,7 @@ const App: React.FC = () => {
           <p className="text-slate-400 mb-12 max-w-xl mx-auto">
             I'm currently open to freelance and full-time opportunities. If you have a project in mind or just want to say hi, feel free to reach out!
           </p>
-          
+
           <a href={`mailto:${PORTFOLIO_DATA.email}`} className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-accent2 rounded-full text-white font-bold text-lg hover:shadow-lg hover:shadow-accent/25 transition-all duration-300 transform hover:-translate-y-1">
             <Mail size={20} />
             Say Hello
