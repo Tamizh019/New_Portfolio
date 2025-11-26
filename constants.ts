@@ -24,7 +24,7 @@ export const PORTFOLIO_DATA: UserData = {
     }
   ],
   skills: [
-    { category: "Languages", skills: ["Java (OOP, Collections)", "Python", "JavaScript", "SQL", "C++"] },
+    { category: "Languages", skills: ["Java (OOP, Collections)", "Python", "JavaScript", "SQL"] },
     { category: "Frontend", skills: ["React.js", "Bootstrap", "HTML5/CSS3", "Vite"] },
     { category: "Backend", skills: ["Spring Boot", "Flask", "Supabase", "RESTful APIs", "JDBC"] },
     { category: "Databases", skills: ["MySQL", "PostgreSQL", "Supabase"] },
