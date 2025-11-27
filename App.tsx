@@ -298,7 +298,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* <AIChat /> */}
+      { <AIChat /> } 
     </div>
   );
 };
