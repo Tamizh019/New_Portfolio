@@ -10,18 +10,45 @@ export const PORTFOLIO_DATA: UserData = {
   portfolio: "https://tamizharasan-portfolio.netlify.app/",
   role: "AI Engineer & Full-Stack Developer",
   bio: "3rd-year CSE (AI) student at SIST, Chennai. I build on the application layer of AI — RAG pipelines, LLM orchestration, prompt systems, and computer vision. Alongside that, I ship full-stack products people actually use. Currently targeting AI Engineering and SDE roles for 2026.",
-  education: [
+  timeline: [
     {
-      institution: "Sathyabama Institute of Science & Technology (SIST)",
-      degree: "B.E CSE – Artificial Intelligence",
-      details: "3rd Year · CGPA: 8.7 · Specialisation: AI & ML",
-      year: "2023 – 2027"
+      type: "experience",
+      title: "Internship Trainee",
+      organization: "Rudhra Info Solutions",
+      date: "March 2026 – Present",
+      details: ["Incoming intern. Details to be updated."]
     },
     {
-      institution: "Mount Saint Joseph MHSS",
-      degree: "HSC & SSLC",
-      details: "HSC: 81.66% · SSLC: 100%",
-      year: "2021 – 2023"
+      type: "experience",
+      title: "Java Developer Intern",
+      organization: "Team Internship",
+      date: "Past",
+      details: [
+        "Engineered a multi-module CRM in Java / JDBC covering lead tracking, contacts, and pipeline workflows",
+        "Designed & normalised MySQL relational schemas; restructured joins across 5+ entity relations",
+        "Implemented full CRUD backend logic with validation across all user-facing modules"
+      ]
+    },
+    {
+      type: "education",
+      title: "B.E CSE – Artificial Intelligence",
+      organization: "Sathyabama Institute of Science & Technology (SIST) • Chennai",
+      date: "2023 – 2027",
+      details: ["3rd Year · CGPA: 8.7 · Specialisation: Artificial Intelligence & Machine Learning"]
+    },
+    {
+      type: "education",
+      title: "HSC",
+      organization: "Mount Saint Joseph MHSS • Tiruvannamalai",
+      date: "2022 – 2023",
+      details: ["HSC: 81.66%"]
+    },
+    {
+      type: "education",
+      title: "SSLC ",
+      organization: "Mount Saint Joseph MHSS • Tiruvannamalai",
+      date: "2021 – 2022",
+      details: ["SSLC: 100%"]
     }
   ],
   skills: [
@@ -31,7 +58,7 @@ export const PORTFOLIO_DATA: UserData = {
     },
     {
       category: "Frontend",
-      skills: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Framer Motion", "HTML5 / CSS3"]
+      skills: ["Next.js", "React.js", "Tailwind CSS", "Framer Motion", "HTML5 / CSS3"]
     },
     {
       category: "Backend & APIs",
@@ -46,27 +73,15 @@ export const PORTFOLIO_DATA: UserData = {
       skills: ["PostgreSQL", "MySQL", "Supabase", "Git", "Docker", "VS Code"]
     }
   ],
-  experience: [
-    {
-      role: "Java Developer Intern",
-      company: "Team Internship",
-      project: "Enterprise CRM System",
-      responsibilities: [
-        "Engineered a multi-module CRM in Java / JDBC covering lead tracking, contacts, and pipeline workflows",
-        "Designed & normalised MySQL relational schemas; restructured joins across 5+ entity relations",
-        "Implemented full CRUD backend logic with validation across all user-facing modules"
-      ]
-    }
-  ],
   projects: [
     {
-      title: "Chill Space v3",
-      description: "Real-time collaboration platform — group chat, 9 built-in tools, gamified focus mode.",
+      title: "Chill Space",
+      description: "Real-time collaboration platform — group chat, built-in games, and an integrated code editor for seamless interaction.",
       techStack: ["Next.js 16", "TypeScript", "Supabase", "WebSockets", "Rust", "Framer Motion"],
       features: [
         "WebSocket group messaging with sub-100ms latency",
         "OAuth2 (Google) + email auth with row-level security",
-        "9 micro-tools: Chess, DSA Solver, Galaxy Match, Typing Race",
+        "Built-in multiplayer games and a collaborative code editor",
         "Gamified Focus Mode with XP, streaks & leaderboard"
       ],
       links: {
@@ -104,7 +119,14 @@ export const PORTFOLIO_DATA: UserData = {
       links: {
         github: "https://github.com/Tamizh019/CropYield_Prediction"
       },
-      isFeatured: false
+      isFeatured: false,
+      team: [
+        { name: "Arunmozhi" },
+        { name: "Jenivaa" },
+        { name: "Pradeepraja" },
+        { name: "Dilshan" }
+
+      ]
     },
     {
       title: "Sparky – RAG AI Chatbot",
@@ -120,6 +142,79 @@ export const PORTFOLIO_DATA: UserData = {
         github: "https://github.com/Tamizh019/CHATBOT-sparky"
       },
       isFeatured: false
+    },
+    {
+      title: "NutriChef AI",
+      description: "AI-powered smart kitchen companion — generate full recipes from your ingredients, track nutrition, and cook step-by-step with Gemini AI.",
+      techStack: ["Next.js 16", "React 19", "FastAPI", "Gemini API", "Supabase", "Framer Motion"],
+      features: [
+        "AI recipe generation from available ingredients with full macro breakdown",
+        "Per-meal nutrition tracker: calories, protein, carbs, fat — visualised",
+        "Distraction-free Cook Mode with step-by-step guidance",
+        "AI chatbot for nutrition & cooking questions",
+        "Auto-generated grocery lists from any recipe"
+      ],
+      links: {
+        github: "https://github.com/Tamizh019/NutriChef-AI"
+      },
+      isFeatured: false,
+      team: [
+        { name: "Pradeepraja" },
+        { name: "Arundhathi" }
+      ]
+    },
+    {
+      title: "PolicyHub – RAG Chatbot",
+      description: "RAG-powered HR & IT assistant — upload company documents and get instant, context-aware answers using LangChain + Groq LLaMA.",
+      techStack: ["Python", "Flask", "LangChain", "FAISS", "Groq AI", "Supabase"],
+      features: [
+        "RAG pipeline: PDF/DOCX/TXT upload → chunking → FAISS vector indexing",
+        "LLaMA 3.1 70B via Groq for fast, grounded conversational responses",
+        "HuggingFace all-MiniLM-L6-v2 embeddings for semantic document retrieval",
+        "Dual auth: Supabase OAuth + Flask session fallback",
+        "Context-aware chat history across 50 messages per user"
+      ],
+      links: {
+        github: "https://github.com/Tamizh019/CHATBOT"
+      },
+      isFeatured: false
+    },
+    {
+      title: "AI Voice Detection API",
+      description: "FastAPI-powered API to classify whether an audio sample is AI-generated or genuine human speech — deployed on Hugging Face Spaces.",
+      techStack: ["Python", "FastAPI", "Docker", "librosa", "NumPy", "Hugging Face"],
+      features: [
+        "Classifies audio as AI-generated or human with a 0–1 confidence score",
+        "Supports 5 languages: Tamil, English, Hindi, Malayalam, Telugu",
+        "Analyzes spectral flatness, pitch variation, MFCCs, and energy patterns",
+        "REST API with API-key authentication, deployed via Docker on Hugging Face",
+        "Results returned in 2–5 seconds with detailed explanation"
+      ],
+      links: {
+        demo: "https://huggingface.co/spaces/Tamizh019/AI_Voice_Detection"
+      },
+      isFeatured: false,
+      team: [
+        { name: "Ajay" },
+        { name: "Varshini Sekar" },
+        { name: "Faheem" }
+      ]
+    },
+    {
+      title: "DreamTrack",
+      description: "Modern Kanban task management app with glassmorphism design, drag-and-drop boards, live countdown timers, and confetti completion celebrations.",
+      techStack: ["HTML5", "CSS3", "JavaScript", "Netlify"],
+      features: [
+        "Kanban board with drag-and-drop across To Do, In Progress & Completed columns",
+        "Task timer system: quick presets (30min, 1hr, 2hr) or custom — persisted across sessions",
+        "Glassmorphism UI with dark & light mode and smooth micro-animations",
+        "Confetti celebration + motivational quotes on task completion",
+        "Fully client-side with localStorage persistence — no backend needed"
+      ],
+      links: {
+        demo: "https://dreamtrack-tracker.netlify.app/"
+      },
+      isFeatured: false
     }
   ],
   interests: [
@@ -129,8 +224,8 @@ export const PORTFOLIO_DATA: UserData = {
     "Open Source & Developer Tools"
   ],
   hobbies: [
-    "Competitive Programming (LeetCode / Codeforces)",
     "Building weekend projects & micro-tools",
-    "UI / UX Exploration & Design Systems"
+    "UI / UX Exploration & Design Systems",
+    "3d Designing (Blender) and Game development"
   ]
 };

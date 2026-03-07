@@ -6,8 +6,10 @@ export interface Project {
   links?: {
     github?: string;
     demo?: string;
+    hf?: string;
   };
   isFeatured?: boolean;
+  team?: { name: string; role?: string }[];
 }
 
 export interface SkillCategory {
@@ -15,18 +17,12 @@ export interface SkillCategory {
   skills: string[];
 }
 
-export interface Experience {
-  role: string;
-  company: string;
-  project: string;
-  responsibilities: string[];
-}
-
-export interface Education {
-  institution: string;
-  degree: string;
-  details: string;
-  year: string;
+export interface TimelineEvent {
+  type: 'experience' | 'education';
+  title: string;
+  organization: string;
+  date: string;
+  details: string[];
 }
 
 export interface UserData {
@@ -39,10 +35,9 @@ export interface UserData {
   portfolio?: string;
   role: string;
   bio: string;
-  education: Education[];
+  timeline: TimelineEvent[];
   skills: SkillCategory[];
   projects: Project[];
-  experience: Experience[];
   interests: string[];
   hobbies: string[];
 }

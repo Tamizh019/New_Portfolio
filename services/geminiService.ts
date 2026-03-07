@@ -1,28 +1,32 @@
-import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
+import { GoogleGenAI, Chat } from "@google/genai";
 import { PORTFOLIO_DATA } from '../constants';
 
-const apiKey = process.env.API_KEY || '';
+const apiKey = (typeof process !== 'undefined' && process.env?.API_KEY) ? process.env.API_KEY : '';
 
-// System instruction to give the AI context about Tamizharasan
+// ── System instruction ──────────────────────────────────────────────────────
 const systemInstruction = `
-You are an advanced AI assistant for Tamizharasan R's personal portfolio website.
-Your name is "TamizhAI".
-Your goal is to answer visitor questions about Tamizharasan professionally, enthusiastically, and accurately based on the provided context.
+You are an advanced AI assistant named "TamizhAI" embedded in Tamizharasan R's personal portfolio website.
+Your goal: answer visitor questions about Tamizharasan professionally, enthusiastically, and accurately based on the provided context.
 
-Context:
+Context (full portfolio data):
 ${JSON.stringify(PORTFOLIO_DATA, null, 2)}
 
 Guidelines:
-1. Speak in the first person plural (e.g., "We can tell you...", "Tamizh's projects are...") or as a helpful assistant.
-2. If asked about contact info, provide the email or LinkedIn from the context.
-3. Highlight his strength in Java, Spring Boot, and React.
-4. Mention "Chill Space" if asked for a best project.
-5. Keep answers concise but informative.
-6. If asked about something not in the context, politely say you don't have that information but suggest contacting him directly.
-7. Be friendly and engaging.
+1. Be friendly, warm, and enthusiastic — you represent Tamizh's personality.
+2. Keep answers concise and structured. Use **bold**, bullet points, and line breaks for readability.
+3. If asked about contact info, share email or LinkedIn from the context.
+4. If asked "best project" or "featured project", highlight **Chill Space** first.
+5. If asked about something outside the context, politely admit you don't have that info and suggest contacting Tamizh directly.
+6. Never make up facts or embellish beyond the context data.
+7. You may use markdown formatting — responses will be rendered as markdown.
+8. If the visitor's current page context is provided, tailor your response accordingly (e.g., if they're on Projects, talk about projects proactively).
 `;
 
 let chatInstance: Chat | null = null;
+
+export const resetChatInstance = () => {
+  chatInstance = null;
+};
 
 export const getChatInstance = (): Chat => {
   if (!apiKey) {
@@ -36,20 +40,36 @@ export const getChatInstance = (): Chat => {
       model: 'gemini-2.5-flash',
       config: {
         systemInstruction: systemInstruction,
-        temperature: 0.7,
+        temperature: 0.75,
       },
     });
   }
   return chatInstance;
 };
 
-export const sendMessageToGemini = async (message: string): Promise<string> => {
+// ── Streaming send ────────────────────────────────────────────────────────
+export const streamMessageToGemini = async (
+  message: string,
+  pageContext: string,
+  onChunk: (chunk: string) => void,
+  onDone: () => void,
+  onError: (err: string) => void,
+): Promise<void> => {
   try {
     const chat = getChatInstance();
-    const result: GenerateContentResponse = await chat.sendMessage({ message });
-    return result.text || "I'm sorry, I couldn't generate a response at the moment.";
+    const fullMessage = pageContext
+      ? `[Visitor is currently on: ${pageContext}]\n\n${message}`
+      : message;
+
+    const stream = await chat.sendMessageStream({ message: fullMessage });
+
+    for await (const chunk of stream) {
+      const text = chunk.text;
+      if (text) onChunk(text);
+    }
+    onDone();
   } catch (error) {
-    console.error("Gemini API Error:", error);
-    return "I'm currently having trouble connecting to my brain. Please try again later.";
+    console.error("Gemini streaming error:", error);
+    onError("I'm having trouble connecting right now. Please try again in a moment.");
   }
 };
