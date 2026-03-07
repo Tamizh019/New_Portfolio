@@ -36,6 +36,7 @@ export interface UserData {
   email: string;
   linkedin: string;
   github: string;
+  portfolio?: string;
   role: string;
   bio: string;
   education: Education[];

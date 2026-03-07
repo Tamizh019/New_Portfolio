@@ -1,62 +1,214 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Outfit', sans-serif;
+  --font-sans: 'Inter', sans-serif;
   --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  --color-primary: #0f172a;
-  --color-secondary: #1e293b;
-  --color-accent: #38bdf8;
-  --color-accent2: #818cf8;
+  /* ── Terminal × Neural Palette ── */
+  --color-primary: #07080f;
+  /* deep space black */
+  --color-secondary: #0d1117;
+  /* github dark */
+  --color-surface: #111827;
+  /* card surface */
+  --color-border: #1f2937;
+  /* subtle border */
 
-  --animate-blob: blob 7s infinite;
-  --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+  --color-accent: #00d9ff;
+  /* electric cyan */
+  --color-accent2: #a855f7;
+  /* violet */
+  --color-accent3: #22d3ee;
+  /* teal glow */
+  --color-glow: #00d9ff33;
+  /* cyan glow overlay */
 
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-    }
-
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-  }
+  /* ── Animations ── */
+  --animate-fade-in-up: fadeInUp 0.7s ease-out forwards;
+  --animate-blink: blink 1.1s step-end infinite;
+  --animate-pulse-slow: pulse 3s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-scan: scan 3s linear infinite;
+  --animate-glow-pulse: glowPulse 2s ease-in-out infinite;
 
   @keyframes fadeInUp {
-    0% {
+    from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(24px);
     }
 
-    100% {
+    to {
       opacity: 1;
       transform: translateY(0);
     }
   }
+
+  @keyframes blink {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes scan {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0.4;
+    }
+
+    100% {
+      transform: translateY(800%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes glowPulse {
+
+    0%,
+    100% {
+      box-shadow: 0 0 12px #00d9ff44;
+    }
+
+    50% {
+      box-shadow: 0 0 28px #00d9ff88;
+    }
+  }
+
+  @keyframes gridFade {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes typeReveal {
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100%;
+    }
+  }
 }
 
-/* Custom scrollbar */
+/* ── Base ── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #07080f;
+  color: #e2e8f0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Selection ── */
+::selection {
+  background: #00d9ff33;
+  color: #00d9ff;
+}
+
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #07080f;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+  background: #00d9ff44;
+  border-radius: 9px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #00d9ff88;
+}
+
+/* ── Neural grid background ── */
+.neural-grid {
+  background-image:
+    linear-gradient(rgba(0, 217, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 217, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Glow text ── */
+.glow-cyan {
+  text-shadow: 0 0 20px #00d9ffaa, 0 0 40px #00d9ff44;
+}
+
+.glow-violet {
+  text-shadow: 0 0 20px #a855f7aa, 0 0 40px #a855f744;
+}
+
+/* ── Terminal line prefix ── */
+.term-prefix::before {
+  content: '> ';
+  color: #00d9ff;
+  font-family: var(--font-mono);
+}
+
+/* ── Skill bar ── */
+.skill-bar {
+  height: 2px;
+  background: linear-gradient(90deg, #00d9ff, #a855f7);
+  border-radius: 9px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Card hover glow ── */
+.card-glow:hover {
+  box-shadow: 0 0 0 1px #00d9ff33, 0 8px 32px #00d9ff1a;
+}
+
+/* ── Section scan line ── */
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00d9ff66, transparent);
+  animation: var(--animate-scan);
+  pointer-events: none;
+}
+
+/* ── Tech pill ── */
+.tech-pill {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  border: 1px solid #00d9ff33;
+  color: #00d9ffcc;
+  background: #00d9ff0d;
 }
