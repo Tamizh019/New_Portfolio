@@ -135,7 +135,7 @@ const App: React.FC = () => {
         }`}>
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <a href="#" className="font-mono text-accent text-lg font-bold tracking-widest hover:glow-cyan transition-all">
-            TAMIZH<span className="text-slate-500">.</span><span className="text-violet-400">ai</span>
+            TAMIZH<span className="text-slate-500">.</span><span className="text-violet-400">dev</span>
           </a>
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map(l => (
@@ -147,8 +147,8 @@ const App: React.FC = () => {
             ))}
           </div>
           <a href="/resume.pdf" download
-            className="hidden md:flex items-center gap-2 text-xs font-mono border border-accent/40 text-accent px-4 py-2 rounded hover:bg-accent/10 hover:border-accent transition-all">
-            <Download size={13} /> Resume
+            className="flex items-center gap-2 text-xs font-mono border border-accent/40 text-accent px-3 py-1.5 md:px-4 md:py-2 rounded hover:bg-accent/10 hover:border-accent transition-all">
+            <Download size={13} /> <span className="hidden sm:inline">Resume</span>
           </a>
         </div>
       </nav>
