@@ -13,10 +13,15 @@ export const PORTFOLIO_DATA: UserData = {
   timeline: [
     {
       type: "experience",
-      title: "Internship Trainee",
+      title: "AI Domain Intern",
       organization: "Rudhra Info Solutions",
-      date: "March 2026 – Present",
-      details: ["Incoming intern. Details to be updated."]
+      date: "March 2026 – April 2026",
+      details: [
+        "Architected a 10-agent AI pipeline (Text-to-SQL, QA, Schema RAG, Python Sandbox, Visualization) using LangChain and Gemini API — enabling non-technical users to query any PostgreSQL database in plain English",
+        "Built the FastAPI backend with SSE-based real-time streaming, Redis result caching, pgvector schema embeddings, and Supabase conversation persistence",
+        "Implemented self-correcting SQL with auto-retry on DB rejection and AI-driven chart selection across 23+ interactive Plotly.js chart types",
+        "Project: \"Data-Talk\" — AI for Database Systems"
+      ]
     },
     {
       type: "experience",
@@ -54,7 +59,7 @@ export const PORTFOLIO_DATA: UserData = {
   skills: [
     {
       category: "AI / ML & LLMs",
-      skills: ["LangChain", "FAISS", "TensorFlow", "Scikit-learn", "OpenCV", "Gemini API", "RAG Pipelines", "Prompt Engineering"]
+      skills: ["LangChain", "LlamaIndex", "FAISS", "TensorFlow", "Scikit-learn", "OpenCV", "Gemini API", "RAG Pipelines", "Prompt Engineering"]
     },
     {
       category: "Frontend",
@@ -70,7 +75,7 @@ export const PORTFOLIO_DATA: UserData = {
     },
     {
       category: "Databases & Tools",
-      skills: ["PostgreSQL", "MySQL", "Supabase", "Git", "Docker", "VS Code"]
+      skills: ["PostgreSQL", "MySQL", "Supabase", "pgvector", "Redis", "Git", "Docker", "VS Code"]
     }
   ],
   projects: [
@@ -87,6 +92,22 @@ export const PORTFOLIO_DATA: UserData = {
       links: {
         github: "https://github.com/Tamizh019/CHILL_SPACE_v3",
         demo: "https://tamizh-loginpage.netlify.app/"
+      },
+      isFeatured: true
+    },
+    {
+      title: "Data-Talk – Conversational AI for Databases",
+      description: "Enterprise-grade Text-to-SQL platform — chat with your PostgreSQL database in plain English. 10-agent pipeline generates SQL, runs it securely, renders 23+ interactive charts, and writes a plain-English summary in real-time.",
+      techStack: ["Python", "FastAPI", "LangChain", "Gemini API", "pgvector", "LlamaIndex", "Redis", "Supabase", "Plotly.js"],
+      features: [
+        "10-agent pipeline: routing, SQL gen, QA review, Python analytics, visualization, error handling",
+        "Schema RAG using pgvector + LlamaIndex with MD5-hashed embedding cache — skips API calls on reconnect",
+        "Self-correcting SQL: QA Agent reviews pre-execution; auto-rewrites and retries on DB rejection",
+        "23+ Plotly.js chart types with AI-driven chart selection, Dashboard Studio, and live cross-filtering",
+        "SSE-based real-time streaming, Redis result caching, and Supabase conversation persistence"
+      ],
+      links: {
+        github: "https://github.com/Tamizh019/Data-Talk"
       },
       isFeatured: true
     },
