@@ -51,17 +51,19 @@ export default function Layout() {
 
     return (
         <ReactLenis root>
-            <div className="min-h-screen bg-transparent text-slate-200 relative overflow-x-hidden">
+            <div className="min-h-screen bg-transparent text-slate-200 relative">
                 {/* ══ FIXED BACKGROUND LAYER ══ */}
                 <div className="fixed inset-0 w-full h-full z-[-1] pointer-events-none">
                     <div className="absolute inset-0 bg-primary" />
-                    <ParticleBackground />
-                    <div className="absolute inset-0 neural-grid opacity-30" />
-                    <NeuralNodes />
-                    {/* scan line */}
-                    <div className="scan-line" />
-                    <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-500/5 rounded-full blur-[100px]" />
+                    {/* Particles and neural grids deactivated for clean, minimalist organic editorial look */}
+                    {/* <ParticleBackground /> */}
+                    {/* <div className="absolute inset-0 neural-grid opacity-30" /> */}
+                    {/* <NeuralNodes /> */}
+                    {/* <div className="scan-line" /> */}
+
+                    {/* Ambient organic light halos */}
+                    <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-accent/3 rounded-full blur-[150px]" />
+                    <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent2/3 rounded-full blur-[130px]" />
                 </div>
 
                 {/* ══ NAV ══ */}
@@ -70,8 +72,8 @@ export default function Layout() {
                     : 'bg-transparent py-5'
                     }`}>
                     <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-                        <NavLink to="/" className="font-mono text-accent text-lg font-bold tracking-widest hover:glow-cyan transition-all">
-                            TAMIZH<span className="text-slate-500">.</span><span className="text-violet-400">dev</span>
+                        <NavLink to="/" className="font-display text-accent text-2xl font-bold tracking-wide hover:opacity-90 transition-all">
+                            Tamizh<span className="text-slate-500 font-sans">.</span><span className="text-accent2 italic font-medium">dev</span>
                         </NavLink>
 
                         {/* Desktop nav links */}

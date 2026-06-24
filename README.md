@@ -6,7 +6,7 @@ A modern, responsive portfolio built to showcase my projects, skills, and experi
 
 ## About Me
 
-I am a 3rd-year Computer Science Engineering student specializing in Artificial Intelligence at Sathyabama Institute of Science and Technology (SIST), Chennai. I am passionate about building AI-driven applications and full-stack solutions.
+I am a final-year Computer Science Engineering student specializing in Artificial Intelligence at Sathyabama Institute of Science and Technology (SIST), Chennai. I am passionate about building AI-driven applications and full-stack solutions.
 
 ## Technical Skills
 

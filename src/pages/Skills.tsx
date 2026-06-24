@@ -29,8 +29,8 @@ const SKILL_META: Record<string, { icon: React.ReactNode; color: string }> = {
     'Scikit-learn': { icon: <SiScikitlearn />, color: '#F7931E' },
     'OpenCV': { icon: <SiOpencv />, color: '#5C3EE8' },
     'Gemini API': { icon: <SiGooglegemini />, color: '#8E75B2' },
-    'RAG Pipelines': { icon: <BsBraces />, color: '#00d9ff' },
-    'Prompt Engineering': { icon: <BsBraces />, color: '#a855f7' },
+    'RAG Pipelines': { icon: <BsBraces />, color: '#b0c2b2' },
+    'Prompt Engineering': { icon: <BsBraces />, color: '#d99a7e' },
 
     // Backend
     'FastAPI': { icon: <SiFastapi />, color: '#009688' },
@@ -75,12 +75,12 @@ const sectionVariants = {
 
 /* ── Category config with accent colors ── */
 const CATEGORIES = [
-    { key: 'All', label: 'All', accent: '#64748b', glow: '#64748b' },
-    { key: 'AI / ML & LLMs', label: 'AI / ML & LLMs', accent: '#00d9ff', glow: '#00d9ff' },
-    { key: 'Frontend', label: 'Frontend', accent: '#a855f7', glow: '#a855f7' },
-    { key: 'Backend & APIs', label: 'Backend & APIs', accent: '#3ECF8E', glow: '#3ECF8E' },
-    { key: 'Languages', label: 'Languages', accent: '#F7931E', glow: '#F7931E' },
-    { key: 'Databases & Tools', label: 'Databases & Tools', accent: '#4169E1', glow: '#4169E1' },
+    { key: 'All', label: 'All', accent: '#b0c2b2', glow: '#b0c2b2' },
+    { key: 'AI / ML & LLMs', label: 'AI / ML & LLMs', accent: '#b0c2b2', glow: '#b0c2b2' },
+    { key: 'Frontend', label: 'Frontend', accent: '#d99a7e', glow: '#d99a7e' },
+    { key: 'Backend & APIs', label: 'Backend & APIs', accent: '#dfc8af', glow: '#dfc8af' },
+    { key: 'Languages', label: 'Languages', accent: '#c2bda0', glow: '#c2bda0' },
+    { key: 'Databases & Tools', label: 'Databases & Tools', accent: '#b0c2b2', glow: '#b0c2b2' },
 ];
 
 /* ── Each skill icon+name tile ── */
@@ -90,17 +90,16 @@ function SkillTile({ skill, accent }: { skill: string; accent: string }) {
     return (
         <motion.div
             variants={cardVariants}
-            className="group relative flex flex-col items-center gap-3 p-5 bg-surface border border-border rounded-xl cursor-default transition-all duration-300"
+            className="group relative flex flex-col items-center gap-3 p-5 bg-surface/30 border border-border/70 rounded-xl cursor-default transition-all duration-300"
             whileHover={{
-                y: -6,
-                borderColor: accent + '55',
-                boxShadow: `0 0 24px ${accent}20`,
+                y: -4,
+                borderColor: accent,
                 transition: { duration: 0.2 }
             }}
             title={skill}
         >
             <div
-                className="text-3xl transition-all duration-300 drop-shadow-sm group-hover:scale-110"
+                className="text-3xl transition-all duration-300 drop-shadow-sm group-hover:scale-105"
                 style={{ color: meta.color }}
             >
                 {meta.icon}
@@ -108,11 +107,6 @@ function SkillTile({ skill, accent }: { skill: string; accent: string }) {
             <span className="text-xs text-slate-400 group-hover:text-slate-200 transition-colors text-center leading-tight font-medium">
                 {skill}
             </span>
-            {/* Subtle bottom glow on hover */}
-            <div
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-px opacity-0 group-hover:opacity-100 transition-opacity blur-sm"
-                style={{ background: meta.color }}
-            />
         </motion.div>
     );
 }
@@ -194,7 +188,6 @@ export default function Skills() {
                                 }`}
                             style={activeFilter === cat.key ? {
                                 background: cat.accent,
-                                boxShadow: `0 0 20px ${cat.glow}55`
                             } : {}}
                             whileTap={{ scale: 0.95 }}
                         >

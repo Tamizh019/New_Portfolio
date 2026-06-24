@@ -9,7 +9,7 @@ export const PORTFOLIO_DATA: UserData = {
   github: "https://github.com/Tamizh019",
   portfolio: "https://tamizharasan-portfolio.netlify.app/",
   role: "AI Engineer & Full-Stack Developer",
-  bio: "3rd-year CSE (AI) student at SIST, Chennai. I build on the application layer of AI — RAG pipelines, LLM orchestration, prompt systems, and computer vision. Alongside that, I ship full-stack products people actually use. Currently targeting AI Engineering and SDE roles for 2026.",
+  bio: "Final-year CSE (AI) student at SIST, Chennai. I build on the application layer of AI — RAG pipelines, LLM orchestration, prompt systems, and computer vision. Alongside that, I ship full-stack products people actually use. Currently targeting AI Engineering and SDE roles for 2026.",
   timeline: [
     {
       type: "experience",
@@ -39,7 +39,7 @@ export const PORTFOLIO_DATA: UserData = {
       title: "B.E CSE – Artificial Intelligence",
       organization: "Sathyabama Institute of Science & Technology (SIST) • Chennai",
       date: "2023 – 2027",
-      details: ["3rd Year · CGPA: 8.7 · Specialisation: Artificial Intelligence & Machine Learning"]
+      details: ["Final Year · CGPA: 8.86 · Specialisation: Artificial Intelligence "]
     },
     {
       type: "education",

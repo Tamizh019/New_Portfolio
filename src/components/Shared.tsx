@@ -150,36 +150,43 @@ export function SkillCard({ category, skills, ...props }: { category: string; sk
 export function ProjectCard({ project, index, compact = false, ...props }: { project: typeof PORTFOLIO_DATA.projects[0]; index: number; compact?: boolean } & React.ComponentPropsWithoutRef<'div'>) {
     const { ref, inView } = useInView();
     const gradients = [
-        'from-cyan-500/20 to-violet-500/20',
-        'from-violet-500/20 to-emerald-500/20',
-        'from-emerald-500/20 to-cyan-500/20',
-        'from-orange-500/20 to-violet-500/20',
+        'from-accent/30 to-accent2/30',
+        'from-accent2/30 to-accent3/30',
+        'from-accent3/30 to-accent/30',
+        'from-accent/20 via-accent3/20 to-accent2/20',
     ];
 
     const slug = project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
     return (
         <Link to={`/projects/${slug}`} ref={ref as any}
-            className={`group relative bg-surface border border-border rounded-xl overflow-hidden card-glow transition-all duration-500 flex flex-col w-full h-full ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} ${project.isFeatured ? 'md:col-span-2' : ''} hover:border-accent/40`}
+            className={`group relative bg-surface/30 border border-border/70 rounded-xl overflow-hidden transition-all duration-300 flex flex-col w-full h-full ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} ${project.isFeatured ? 'md:col-span-2' : ''} hover:border-accent/30 hover:-translate-y-1`}
             style={{ transitionDelay: `${index * 80}ms` }}
             {...props}>
 
             {/* gradient top bar */}
-            <div className={`h-1 w-full bg-gradient-to-r ${gradients[index % gradients.length]}`} />
+            <div className={`h-[2px] w-full bg-gradient-to-r ${gradients[index % gradients.length]}`} />
 
             {/* featured badge */}
             {project.isFeatured && (
-                <div className="absolute top-5 right-5 flex items-center gap-1.5 bg-accent/10 border border-accent/30 text-accent text-[10px] font-mono font-bold px-2.5 py-1 rounded-full z-10">
-                    <Zap size={9} /> FEATURED
+                <div className="absolute top-5 right-5 flex items-center gap-1.5 bg-accent/10 border border-accent/25 text-accent text-[9px] font-mono font-semibold px-2.5 py-0.5 rounded tracking-wider z-10 uppercase">
+                    [ featured ]
                 </div>
             )}
 
-            <div className={`p-7 flex flex-col flex-grow ${compact ? 'justify-center' : ''}`}>
+            <div className={`p-7 flex flex-col flex-grow relative ${compact ? 'justify-center' : ''}`}>
+                {/* Catalog Indexing */}
+                {!project.isFeatured && (
+                    <div className="absolute top-5 right-5 font-mono text-[10px] text-slate-600 select-none group-hover:text-accent/60 transition-colors">
+                        [{String(index + 1).padStart(2, '0')}]
+                    </div>
+                )}
+
                 {/* title */}
-                <h3 className="text-lg font-display font-bold text-white group-hover:text-accent transition-colors mb-2">
+                <h3 className="text-xl font-display font-semibold text-white group-hover:text-accent transition-colors mb-2 mt-2">
                     {project.title}
                 </h3>
-                <p className="text-slate-400 text-sm mb-5 leading-relaxed">{project.description}</p>
+                <p className="text-slate-400 text-sm mb-5 leading-relaxed font-light">{project.description}</p>
 
                 {/* features */}
                 {!compact && (
@@ -190,7 +197,7 @@ export function ProjectCard({ project, index, compact = false, ...props }: { pro
                             </li>
                         ))}
                         {project.features.length > 2 && (
-                            <li className="flex gap-2 text-xs text-slate-400 font-mono mt-2">
+                            <li className="flex gap-2 text-xs text-slate-500 font-mono mt-2">
                                 + {project.features.length - 2} more...
                             </li>
                         )}
@@ -208,7 +215,7 @@ export function ProjectCard({ project, index, compact = false, ...props }: { pro
 
                 {/* links (stop propagation if clicked so we don't route) */}
                 {!compact && (
-                    <div className="flex gap-5 mt-auto pt-4 border-t border-border" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex gap-5 mt-auto pt-4 border-t border-border/50" onClick={(e) => e.stopPropagation()}>
                         {project.links?.github && (
                             <a href={project.links.github} target="_blank" rel="noreferrer"
                                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-accent transition-colors font-medium">

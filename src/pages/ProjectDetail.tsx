@@ -4,7 +4,7 @@ import { ArrowLeft, Github, ExternalLink, Zap, CheckCircle2, Clock } from 'lucid
 import { motion } from 'framer-motion';
 import { PORTFOLIO_DATA } from '../../constants';
 
-// Tech-stack icons map (reuse from Skills)
+// Tech-stack icons map
 import {
     SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, SiFramer, SiHtml5,
     SiPython, SiTensorflow, SiScikitlearn, SiOpencv, SiGooglegemini, SiLangchain,
@@ -45,31 +45,31 @@ const TECH_META: Record<string, { icon: React.ReactNode; color: string }> = {
     'Rust': { icon: <SiRust />, color: '#CE4A00' },
     'WebSockets': { icon: <VscTerminal />, color: '#F59E0B' },
     'REST APIs': { icon: <BsBraces />, color: '#94a3b8' },
-    'RAG Pipelines': { icon: <BsBraces />, color: '#00d9ff' },
+    'RAG Pipelines': { icon: <BsBraces />, color: '#8b5cf6' },
 };
 
 const GRADIENTS = [
-    'from-cyan-500 to-violet-500',
-    'from-violet-500 to-emerald-500',
-    'from-emerald-500 to-cyan-500',
-    'from-orange-500 to-violet-500',
+    'from-accent to-accent2',
+    'from-accent2 to-accent3',
+    'from-accent3 to-accent',
+    'from-accent via-accent3 to-accent2',
 ];
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } }
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
 };
 const staggerContainer = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } }
+    show: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } }
 };
 const featureItem = {
-    hidden: { opacity: 0, x: -20 },
-    show: { opacity: 1, x: 0, transition: { duration: 0.5 } }
+    hidden: { opacity: 0, x: -15 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.4 } }
 };
 const techItem = {
-    hidden: { opacity: 0, scale: 0.7 },
-    show: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] } }
+    hidden: { opacity: 0, scale: 0.9 },
+    show: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: 'easeOut' } }
 };
 
 function TechBadge({ tech }: { tech: string }) {
@@ -77,12 +77,12 @@ function TechBadge({ tech }: { tech: string }) {
     return (
         <motion.div
             variants={techItem}
-            className="group flex flex-col items-center gap-2 p-4 bg-primary/60 border border-border rounded-xl hover:border-white/20 transition-all cursor-default"
-            whileHover={{ y: -4, scale: 1.05 }}
+            className="group flex flex-col items-center gap-2 p-3 bg-white/[0.01] border border-white/5 rounded-2xl hover:border-white/15 transition-all duration-300 cursor-default"
+            whileHover={{ y: -3, scale: 1.03 }}
             title={tech}
         >
-            <div className="text-2xl" style={{ color: meta.color }}>{meta.icon}</div>
-            <span className="text-[11px] text-slate-400 group-hover:text-slate-200 transition-colors text-center leading-tight">{tech}</span>
+            <div className="text-xl" style={{ color: meta.color }}>{meta.icon}</div>
+            <span className="text-[10px] text-slate-400 group-hover:text-white transition-colors text-center leading-tight">{tech}</span>
         </motion.div>
     );
 }
@@ -104,7 +104,6 @@ export default function ProjectDetail() {
 
     const gradient = GRADIENTS[projectIndex % GRADIENTS.length];
 
-    // Next & prev projects for navigation
     const prev = PORTFOLIO_DATA.projects[projectIndex - 1];
     const next = PORTFOLIO_DATA.projects[projectIndex + 1];
     const prevSlug = prev?.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -114,60 +113,60 @@ export default function ProjectDetail() {
         <section className="py-20 relative flex-grow">
             <div className="max-w-5xl mx-auto px-6">
 
-                {/* ── Back navigation ── */}
-                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
+                {/* Back navigation */}
+                <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }}>
                     <Link to="/projects" className="inline-flex items-center gap-2 text-slate-400 hover:text-accent font-mono text-xs mb-10 transition-colors group">
-                        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to Projects
+                        <ArrowLeft size={13} className="group-hover:-translate-x-1 transition-transform text-accent" /> BACK TO PROJECTS
                     </Link>
                 </motion.div>
 
-                {/* ── Hero Banner ── */}
+                {/* Hero Banner */}
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="relative rounded-2xl border border-border bg-surface overflow-hidden mb-12"
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative rounded-2xl border border-white/5 bg-[#0a0b10]/45 backdrop-blur-xl overflow-hidden mb-12 shadow-xl"
                 >
-                    {/* Gradient strip */}
-                    <div className={`h-1 w-full bg-gradient-to-r ${gradient}`} />
+                    {/* Gradient top strip */}
+                    <div className={`h-[2px] w-full bg-gradient-to-r ${gradient}`} />
 
-                    {/* Large gradient bg */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-[0.04] pointer-events-none`} />
+                    {/* Ambient light overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-[0.03] pointer-events-none`} />
 
-                    <div className="relative z-10 p-5 sm:p-8 md:p-14">
-                        <div className="flex flex-col sm:flex-row flex-wrap items-start justify-between gap-6 sm:gap-8">
+                    <div className="relative z-10 p-6 sm:p-10 md:p-14">
+                        <div className="flex flex-col sm:flex-row flex-wrap items-start justify-between gap-8">
                             <div className="flex-1 min-w-0">
                                 {project.isFeatured && (
-                                    <div className="flex items-center gap-1.5 bg-accent/10 border border-accent/30 text-accent text-[10px] font-mono font-bold px-2.5 py-1 rounded-full mb-5 w-fit">
-                                        <Zap size={9} /> FEATURED PROJECT
+                                    <div className="flex items-center gap-1 bg-accent/5 border border-accent/15 text-accent text-[9px] font-mono font-semibold px-2.5 py-0.5 rounded tracking-wider mb-5 w-fit uppercase">
+                                        [ Featured Project ]
                                     </div>
                                 )}
-                                <h1 className="text-2xl sm:text-4xl md:text-6xl font-display font-bold text-white tracking-tight mb-4 leading-tight">
+                                <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight mb-4 leading-tight">
                                     {project.title}
                                 </h1>
-                                <p className="text-lg text-slate-400 leading-relaxed max-w-2xl">
+                                <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl font-light">
                                     {project.description}
                                 </p>
                             </div>
 
-                            {/* CTAs */}
+                            {/* Actions */}
                             <div className="flex flex-row sm:flex-col gap-3 flex-shrink-0 w-full sm:w-auto">
                                 {project.links?.github && (
                                     <motion.a
                                         href={project.links.github} target="_blank" rel="noreferrer"
-                                        className="flex items-center gap-2 border border-border text-slate-300 px-5 py-3 rounded-lg hover:border-accent/40 hover:text-accent transition-all text-sm font-medium min-w-[140px] justify-center"
-                                        whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                                        className="flex items-center gap-2 border border-white/5 bg-white/[0.01] text-slate-300 hover:text-white px-5 py-3 rounded-xl hover:border-white/10 transition-all text-xs font-semibold uppercase tracking-wider font-mono justify-center"
+                                        whileHover={{ scale: 1.02 }}
                                     >
-                                        <Github size={16} /> Repository
+                                        <Github size={14} /> Repository
                                     </motion.a>
                                 )}
                                 {project.links?.demo && (
                                     <motion.a
                                         href={project.links.demo} target="_blank" rel="noreferrer"
-                                        className="flex items-center gap-2 bg-accent text-primary px-5 py-3 rounded-lg hover:bg-cyan-300 transition-all text-sm font-bold min-w-[140px] justify-center"
-                                        whileHover={{ scale: 1.03, boxShadow: '0 0 24px #00d9ff66' }} whileTap={{ scale: 0.97 }}
+                                        className="flex items-center gap-2 bg-gradient-to-r from-accent to-accent2 hover:opacity-95 text-white px-5 py-3 rounded-xl transition-all text-xs font-bold uppercase tracking-wider font-mono justify-center shadow-lg shadow-accent/15"
+                                        whileHover={{ scale: 1.02 }}
                                     >
-                                        <ExternalLink size={16} /> Live Demo
+                                        <ExternalLink size={14} /> Live Demo
                                     </motion.a>
                                 )}
                             </div>
@@ -175,15 +174,14 @@ export default function ProjectDetail() {
                     </div>
                 </motion.div>
 
-                {/* ── Main grid ── */}
+                {/* Main Content Grid */}
                 <div className="grid md:grid-cols-3 gap-8">
 
-                    {/* Left — Features */}
+                    {/* Features Column */}
                     <div className="md:col-span-2 space-y-10">
-
                         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                            <h2 className="text-xl font-display font-bold text-white mb-6 flex items-center gap-3">
-                                <div className="w-1 h-5 rounded-full bg-accent" />
+                            <h2 className="text-lg font-display font-bold text-white mb-6 flex items-center gap-3">
+                                <div className="w-[2px] h-4 rounded-full bg-accent" />
                                 Key Features & Architecture
                             </h2>
                             <motion.ul
@@ -197,42 +195,42 @@ export default function ProjectDetail() {
                                     <motion.li
                                         key={i}
                                         variants={featureItem}
-                                        className="flex gap-4 text-slate-300 text-sm leading-relaxed p-5 bg-surface border border-border rounded-xl group hover:border-accent/30 transition-all"
-                                        whileHover={{ x: 4 }}
+                                        className="flex gap-4 text-slate-300 text-sm leading-relaxed p-5 bg-[#0a0b10]/45 border border-white/5 rounded-2xl hover:border-accent/30 transition-all duration-300 shadow-sm"
+                                        whileHover={{ x: 2 }}
                                     >
                                         <CheckCircle2 size={16} className="text-accent mt-0.5 flex-shrink-0" />
-                                        {f}
+                                        <span className="font-light">{f}</span>
                                     </motion.li>
                                 ))}
                             </motion.ul>
                         </motion.div>
 
-                        {/* Roadmap */}
+                        {/* Future Roadmap */}
                         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                            <h2 className="text-xl font-display font-bold text-white mb-6 flex items-center gap-3">
-                                <div className="w-1 h-5 rounded-full bg-violet-400" />
+                            <h2 className="text-lg font-display font-semibold text-white mb-6 flex items-center gap-3">
+                                <div className="w-[2px] h-4 rounded-full bg-accent2" />
                                 Future Roadmap
                             </h2>
-                            <div className="p-6 bg-surface border border-border rounded-xl group hover:border-violet-500/40 transition-all">
-                                <div className="flex items-center gap-2 text-violet-400 text-xs font-mono mb-3">
+                            <div className="p-6 bg-white/[0.01] border border-white/5 rounded-2xl hover:border-accent2/30 transition-all duration-300 shadow-sm">
+                                <div className="flex items-center gap-2 text-accent2 text-[10px] font-mono mb-3 tracking-wider uppercase">
                                     <Clock size={12} /> in progress
                                 </div>
-                                <p className="text-slate-400 text-sm leading-relaxed">
-                                    This project is continuously evolving. Planned improvements include enhanced AI models, deeper integrations, improved performance, and a more polished user experience. Watch the repository for updates.
+                                <p className="text-slate-400 text-sm leading-relaxed font-light">
+                                    This workspace module is continuously engineered. Future features focus on deep API integrations, structural testing boundaries, runtime speed increases, and visual improvements.
                                 </p>
                             </div>
                         </motion.div>
                     </div>
 
-                    {/* Right — Sidebar */}
+                    {/* Sidebar */}
                     <div>
-                        {/* Tech Stack */}
+                        {/* Tech Stack Widget */}
                         <motion.div
-                            className="bg-surface border border-border rounded-xl p-6 mb-6 sticky top-28"
+                            className="glass-panel rounded-2xl p-6 mb-6 shadow-md"
                             variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
                         >
-                            <h3 className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-5 flex items-center gap-2">
-                                <Zap size={10} className="text-accent" /> Technology Stack
+                            <h3 className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-5 flex items-center gap-2">
+                                <Zap size={10} className="text-accent" /> TECHNOLOGY STACK
                             </h3>
                             <motion.div
                                 className="grid grid-cols-3 gap-2"
@@ -249,56 +247,56 @@ export default function ProjectDetail() {
                             </motion.div>
                         </motion.div>
 
-                        {/* Links quick access */}
+                        {/* Links access */}
                         {(project.links?.github || project.links?.demo) && (
                             <motion.div
-                                className="bg-surface border border-border rounded-xl p-6"
+                                className="glass-panel rounded-2xl p-6 mb-6 shadow-md"
                                 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
                             >
-                                <h3 className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-5">Links</h3>
-                                <div className="space-y-3">
+                                <h3 className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-5">LINKS</h3>
+                                <div className="space-y-2">
                                     {project.links?.github && (
                                         <a href={project.links.github} target="_blank" rel="noreferrer"
-                                            className="flex items-center gap-3 text-sm text-slate-400 hover:text-accent transition-colors p-3 rounded-lg hover:bg-accent/5 group">
-                                            <Github size={16} className="group-hover:scale-110 transition-transform" />
+                                            className="flex items-center gap-3 text-xs sm:text-sm text-slate-400 hover:text-white transition-colors p-3 rounded-xl hover:bg-white/[0.02] border border-transparent hover:border-white/5 group">
+                                            <Github size={15} className="group-hover:scale-105 transition-transform" />
                                             <span>Source Code</span>
-                                            <ExternalLink size={10} className="ml-auto opacity-40" />
+                                            <ExternalLink size={10} className="ml-auto opacity-45" />
                                         </a>
                                     )}
                                     {project.links?.demo && (
                                         <a href={project.links.demo} target="_blank" rel="noreferrer"
-                                            className="flex items-center gap-3 text-sm text-slate-400 hover:text-accent transition-colors p-3 rounded-lg hover:bg-accent/5 group">
-                                            <ExternalLink size={16} className="group-hover:scale-110 transition-transform" />
+                                            className="flex items-center gap-3 text-xs sm:text-sm text-slate-400 hover:text-white transition-colors p-3 rounded-xl hover:bg-white/[0.02] border border-transparent hover:border-white/5 group">
+                                            <ExternalLink size={15} className="group-hover:scale-105 transition-transform" />
                                             <span>Live Demo</span>
-                                            <ExternalLink size={10} className="ml-auto opacity-40" />
+                                            <ExternalLink size={10} className="ml-auto opacity-45" />
                                         </a>
                                     )}
                                 </div>
                             </motion.div>
                         )}
 
-                        {/* Team Members */}
+                        {/* Build Team */}
                         {project.team && project.team.length > 0 && (
                             <motion.div
-                                className="bg-surface border border-border rounded-xl p-6 mt-6"
+                                className="glass-panel rounded-2xl p-6 shadow-md"
                                 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
                             >
-                                <h3 className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-5 flex items-center gap-2">
-                                    <span className="text-violet-400">👥</span> Built With
+                                <h3 className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-5 flex items-center gap-2">
+                                    <span>👥</span> BUILT WITH
                                 </h3>
-                                <div className="space-y-3">
+                                <div className="space-y-2">
                                     {project.team.map((member, i) => (
-                                        <div key={i} className="flex items-center justify-between gap-3 p-3 rounded-lg bg-primary/40 border border-border hover:border-violet-500/30 transition-all group">
+                                        <div key={i} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-white/[0.01] border border-white/5 hover:border-accent2/25 transition-all duration-300 group">
                                             <div className="flex items-center gap-2.5">
-                                                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-accent flex items-center justify-center text-xs font-bold text-primary flex-shrink-0">
+                                                <div className="w-6.5 h-6.5 rounded-full bg-gradient-to-br from-accent to-accent2 flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0 shadow-sm">
                                                     {member.name[0]}
                                                 </div>
-                                                <span className="text-sm text-slate-300 group-hover:text-white transition-colors font-medium">
+                                                <span className="text-xs sm:text-sm text-slate-400 group-hover:text-white transition-colors font-medium">
                                                     {member.name}
                                                 </span>
                                             </div>
                                             {member.role && (
-                                                <span className="text-[10px] text-violet-400 font-mono bg-violet-500/10 px-2 py-0.5 rounded border border-violet-500/20 whitespace-nowrap">
+                                                <span className="text-[8px] text-accent2 font-mono bg-accent2/5 px-2 py-0.5 rounded border border-accent2/15 whitespace-nowrap uppercase tracking-wider">
                                                     {member.role}
                                                 </span>
                                             )}
@@ -310,35 +308,35 @@ export default function ProjectDetail() {
                     </div>
                 </div>
 
-                {/* ── Project Navigation ── */}
+                {/* Project Navigation */}
                 <motion.div
-                    className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4"
+                    className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4"
                     variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
                 >
                     {prev ? (
                         <Link to={`/projects/${prevSlug}`}
-                            className="group flex items-center gap-3 text-slate-400 hover:text-accent transition-colors">
-                            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+                            className="group flex items-center gap-3 text-slate-400 hover:text-white transition-colors">
+                            <ArrowLeft size={15} className="group-hover:-translate-x-1 transition-transform text-accent" />
                             <div>
-                                <div className="text-xs font-mono text-slate-600 mb-1">Previous</div>
-                                <div className="text-sm font-medium">{prev.title}</div>
+                                <div className="text-[9px] font-mono text-slate-500 mb-0.5 tracking-wider uppercase">Previous</div>
+                                <div className="text-sm font-semibold">{prev.title}</div>
                             </div>
                         </Link>
                     ) : <div />}
 
                     <Link to="/projects"
-                        className="text-xs font-mono text-slate-500 hover:text-accent transition-colors px-4 py-2 border border-border rounded-lg hover:border-accent/40">
+                        className="text-[10px] font-mono text-slate-400 hover:text-white transition-colors px-4 py-2 border border-white/5 bg-white/[0.01] rounded-xl hover:border-white/10 tracking-widest uppercase">
                         All Projects
                     </Link>
 
                     {next ? (
                         <Link to={`/projects/${nextSlug}`}
-                            className="group flex items-center gap-3 text-slate-400 hover:text-accent transition-colors text-right">
+                            className="group flex items-center gap-3 text-slate-400 hover:text-white transition-colors text-right">
                             <div>
-                                <div className="text-xs font-mono text-slate-600 mb-1">Next</div>
-                                <div className="text-sm font-medium">{next.title}</div>
+                                <div className="text-[9px] font-mono text-slate-500 mb-0.5 tracking-wider uppercase">Next</div>
+                                <div className="text-sm font-semibold">{next.title}</div>
                             </div>
-                            <ArrowLeft size={16} className="rotate-180 group-hover:translate-x-1 transition-transform" />
+                            <ArrowLeft size={15} className="rotate-180 group-hover:translate-x-1 transition-transform text-accent2" />
                         </Link>
                     ) : <div />}
                 </motion.div>

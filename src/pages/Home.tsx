@@ -98,13 +98,12 @@ export default function Home() {
             {/* ══ HERO ══ */}
             <section className="min-h-[90vh] flex items-center justify-center relative overflow-hidden">
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center pt-10">
-                    <div className="inline-flex items-center gap-2 font-mono text-xs text-accent/80 bg-accent/5 border border-accent/20 px-4 py-2 rounded-full mb-8 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                        <span className="w-2 h-2 rounded-full bg-green-400 animate-[glowPulse_2s_ease-in-out_infinite]" />
-                        <span className="text-slate-500">$</span> initialising<span className="text-accent">_portfolio</span>... <span className="text-green-400">READY</span>
+                    <div className="inline-flex items-center gap-2 font-mono text-xs text-accent/80 bg-accent/5 border border-accent/25 px-4 py-1.5 rounded-full mb-8 animate-[fadeInUp_0.6s_ease-out_forwards]">
+                        <span> CSE (AI) FINAL-YEAR • SIST CHENNAI</span>
                     </div>
 
-                    <h1 className="text-5xl sm:text-6xl md:text-8xl font-display font-bold tracking-tight mb-4 animate-[fadeInUp_0.7s_ease-out_0.1s_forwards] opacity-0">
-                        {PORTFOLIO_DATA.name}
+                    <h1 className="text-5xl sm:text-6xl md:text-8xl font-display font-medium tracking-wide mb-6 animate-[fadeInUp_0.7s_ease-out_0.1s_forwards] opacity-0 text-white leading-[1.1]">
+                        Tamizharasan <span className="italic text-accent2 font-semibold">R.</span>
                     </h1>
 
                     <div className="h-12 flex items-center justify-center mb-6 animate-[fadeInUp_0.7s_ease-out_0.2s_forwards] opacity-0">
@@ -121,11 +120,11 @@ export default function Home() {
 
                     <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-10 animate-[fadeInUp_0.7s_ease-out_0.4s_forwards] opacity-0">
                         <Link to="/projects"
-                            className="flex items-center gap-2 bg-accent text-primary font-bold px-6 py-3 rounded hover:bg-cyan-300 transition-all hover:shadow-[0_0_24px_#00d9ff88] text-sm">
+                            className="flex items-center gap-2 bg-accent text-primary font-bold px-6 py-3 rounded hover:opacity-90 transition-all text-sm">
                             View Work <ArrowRight size={15} />
                         </Link>
                         <a href="/resume.pdf" download
-                            className="flex items-center gap-2 border border-accent/40 text-accent px-6 py-3 rounded hover:bg-accent/10 hover:border-accent transition-all text-sm">
+                            className="flex items-center gap-2 border border-accent/30 text-accent px-6 py-3 rounded hover:bg-accent/5 hover:border-accent transition-all text-sm">
                             <Mail size={15} /> Download Resume
                         </a>
                     </div>
@@ -146,28 +145,55 @@ export default function Home() {
             </section>
 
             {/* ══ ABOUT PREVIEW ══ */}
-            <section className="py-24 relative">
-                <div className="max-w-4xl mx-auto px-6">
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
+            <section className="py-24 relative border-t border-white/5">
+                <div className="max-w-5xl mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+                        {/* Left Side: Large Serif Quote Statement */}
                         <motion.div
                             variants={fadeLeft}
                             initial="hidden"
                             whileInView="show"
                             viewport={{ once: true, margin: "-80px" }}
+                            className="md:col-span-6 space-y-4"
                         >
                             <SectionHeading prefix="01" title="Quick" accent="Intro" />
+                            <h3 className="text-2xl sm:text-3xl font-display font-light text-white leading-relaxed pt-4 italic">
+                                "Grounded intelligence meets responsive interaction. I construct pipelines that think, and backend systems that scale."
+                            </h3>
                         </motion.div>
+                        
+                        {/* Right Side: Narrative + Highlights Card */}
                         <motion.div
                             variants={fadeRight}
                             initial="hidden"
                             whileInView="show"
                             viewport={{ once: true, margin: "-80px" }}
+                            className="md:col-span-6 space-y-6"
                         >
-                            <p className="text-slate-300 md:text-lg leading-relaxed mb-6">
-                                I'm a 3rd-year CSE (AI) student at SIST, Chennai. I build on the application layer of AI — RAG pipelines, LLM orchestration, prompt systems, and computer vision. Alongside that, I ship full-stack products people actually use.
+                            <p className="text-slate-400 text-sm sm:text-base leading-relaxed font-light">
+                                I build on the application layer of Artificial Intelligence — focusing on self-correcting RAG flows, database agent orchestration, and secure web architectures.
                             </p>
-                            <Link to="/about" className="inline-flex items-center gap-2 border border-accent/40 text-accent px-6 py-3 rounded hover:bg-accent/10 hover:border-accent transition-all text-sm font-medium">
-                                Education & Experience <ArrowRight size={14} />
+                            
+                            {/* Bullet card */}
+                            <div className="glass-panel rounded-2xl p-6 space-y-3 shadow-md">
+                                <div className="flex items-start gap-3">
+                                    <span className="text-accent mt-1 text-xs select-none">✦</span>
+                                    <div>
+                                        <h4 className="text-white text-xs sm:text-sm font-semibold font-mono">Academic Track</h4>
+                                        <p className="text-slate-500 text-xs mt-0.5">Final-Year B.E CSE (AI) · SIST Chennai · 8.86 CGPA</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3 pt-3 border-t border-white/5">
+                                    <span className="text-accent2 mt-1 text-xs select-none">✦</span>
+                                    <div>
+                                        <h4 className="text-white text-xs sm:text-sm font-semibold font-mono">Domain Experience</h4>
+                                        <p className="text-slate-500 text-xs mt-0.5">AI Domain Intern · Designed 10-agent Text-to-SQL pipelines</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <Link to="/about" className="inline-flex items-center gap-2 border border-white/10 hover:border-accent/40 bg-white/[0.01] hover:bg-accent/5 text-slate-300 hover:text-white px-5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 uppercase tracking-wider font-mono">
+                                Discover My Journey <ArrowRight size={13} />
                             </Link>
                         </motion.div>
                     </div>
@@ -185,36 +211,42 @@ export default function Home() {
                 >
                     <SectionHeading prefix="02" title="AI" accent="Vision" center />
                     <motion.div
-                        className="mt-14 bg-surface/60 border border-border rounded-2xl p-10 backdrop-blur-sm card-glow"
-                        whileHover={{ scale: 1.01, boxShadow: '0 0 40px #00d9ff18' }}
-                        transition={{ duration: 0.3 }}
+                        className="mt-14 bg-surface/30 border border-border/50 hover:border-accent/30 rounded-2xl backdrop-blur-sm overflow-hidden transition-all duration-300"
+                        whileHover={{ y: -4 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
                     >
-                        <div className="font-mono text-xs text-accent/60 mb-6 flex items-center justify-center gap-2">
-                            <Zap size={12} /> Vision.txt
+                        {/* Minimalist editorial header */}
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-border/30 select-none bg-secondary/20">
+                            <span className="font-mono text-[10px] text-accent/60 tracking-widest uppercase">/ 02 . VISION</span>
+                            <span className="font-mono text-[10px] text-slate-500">vision.ts</span>
                         </div>
-                        <blockquote className="text-xl md:text-2xl font-display text-white leading-relaxed mb-6">
-                            "Making AI talk is easy.
-                            <br />
-                            <span className="text-accent">Making it reliable is engineering."</span>
-                        </blockquote>
-                        <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8">
-                            Anyone can ping an API, but building production-ready AI requires control. I specialize in the application layer — controlling hallucinations through grounded RAG pipelines, structuring data, and ensuring LLM outputs are accurate, fast, and seamlessly integrated into user-facing products.
-                        </p>
 
-                        {/* Staggered pills */}
-                        <motion.div
-                            className="flex flex-wrap justify-center gap-3"
-                            variants={staggerContainer}
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true }}
-                        >
-                            {['RAG Pipelines', 'Prompt Engineering', 'LLM Orchestration', 'AI Product Engineering', 'Computer Vision'].map(t => (
-                                <motion.span key={t} variants={pillItem} className="tech-pill text-xs">
-                                    {t}
-                                </motion.span>
-                            ))}
-                        </motion.div>
+                        {/* Card Content */}
+                        <div className="p-6 sm:p-12 pt-10">
+                            <blockquote className="text-xl sm:text-2xl md:text-3xl font-display text-slate-100 leading-relaxed mb-6 font-light italic">
+                                "Making AI talk is easy.
+                                <br className="hidden sm:inline" />
+                                <span className="text-accent not-italic font-semibold"> Making it reliable is engineering."</span>
+                            </blockquote>
+                            <p className="hidden md:block text-slate-400 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8 font-light">
+                                Anyone can ping an API, but building production-ready AI requires control. I specialize in the application layer — controlling hallucinations through grounded RAG pipelines, structuring data, and ensuring LLM outputs are accurate, fast, and seamlessly integrated into user-facing products.
+                            </p>
+
+                            {/* Staggered pills */}
+                            <motion.div
+                                className="flex flex-wrap justify-center gap-3"
+                                variants={staggerContainer}
+                                initial="hidden"
+                                whileInView="show"
+                                viewport={{ once: true }}
+                            >
+                                {['RAG Pipelines', 'Prompt Engineering', 'LLM Orchestration', 'AI Product Engineering', 'Computer Vision'].map(t => (
+                                    <motion.span key={t} variants={pillItem} className="tech-pill text-xs">
+                                        {t}
+                                    </motion.span>
+                                ))}
+                            </motion.div>
+                        </div>
                     </motion.div>
                 </motion.div>
             </section>
@@ -230,36 +262,42 @@ export default function Home() {
                 >
                     <SectionHeading prefix="UX" title="Premium" accent="Experience" center />
                     <motion.div
-                        className="mt-14 bg-surface/60 border border-border rounded-2xl p-10 backdrop-blur-sm card-glow"
-                        whileHover={{ scale: 1.01, boxShadow: '0 0 40px #a855f718' }}
-                        transition={{ duration: 0.3 }}
+                        className="mt-14 bg-surface/30 border border-border/50 hover:border-accent2/30 rounded-2xl backdrop-blur-sm overflow-hidden transition-all duration-300"
+                        whileHover={{ y: -4 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
                     >
-                        <div className="font-mono text-xs text-violet-400/60 mb-6 flex items-center justify-center gap-2">
-                            <Zap size={12} /> interaction.tsx
+                        {/* Minimalist editorial header */}
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-border/30 select-none bg-secondary/20">
+                            <span className="font-mono text-[10px] text-accent2/60 tracking-widest uppercase">/ UX . INTERACTION</span>
+                            <span className="font-mono text-[10px] text-slate-500">interaction.tsx</span>
                         </div>
-                        <blockquote className="text-xl md:text-2xl font-display text-white leading-relaxed mb-6">
-                            "Functionality brings them in.
-                            <br />
-                            <span className="text-violet-400">Experience makes them stay."</span>
-                        </blockquote>
-                        <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8">
-                            Beyond algorithms and APIs, I care deeply about how it feels to use the product. From ultra-smooth scroll animations to micro-interactions and stunning interfaces that don't compromise on performance.
-                        </p>
 
-                        {/* Staggered pills */}
-                        <motion.div
-                            className="flex flex-wrap justify-center gap-3"
-                            variants={staggerContainer}
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true }}
-                        >
-                            {['Framer Motion', 'React Spring', 'Tailwind CSS', 'Micro-interactions', 'Premium Dashboards'].map(t => (
-                                <motion.span key={t} variants={pillItem} className="tech-pill text-xs !border-violet-500/30 !text-violet-400 !bg-violet-500/10">
-                                    {t}
-                                </motion.span>
-                            ))}
-                        </motion.div>
+                        {/* Card Content */}
+                        <div className="p-6 sm:p-12 pt-10">
+                            <blockquote className="text-xl sm:text-2xl md:text-3xl font-display text-white leading-relaxed mb-6 font-light italic">
+                                "Functionality brings them in.
+                                <br className="hidden sm:inline" />
+                                <span className="text-accent2 not-italic font-semibold"> Experience makes them stay."</span>
+                            </blockquote>
+                            <p className="hidden md:block text-slate-400 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8 font-light">
+                                Beyond algorithms and APIs, I care deeply about how it feels to use the product. From ultra-smooth scroll animations to micro-interactions and stunning interfaces that don't compromise on performance.
+                            </p>
+
+                            {/* Staggered pills */}
+                            <motion.div
+                                className="flex flex-wrap justify-center gap-3"
+                                variants={staggerContainer}
+                                initial="hidden"
+                                whileInView="show"
+                                viewport={{ once: true }}
+                            >
+                                {['Framer Motion', 'React Spring', 'Tailwind CSS', 'Micro-interactions', 'Premium Dashboards'].map(t => (
+                                    <motion.span key={t} variants={pillItem} className="tech-pill text-xs !border-accent2/20 !text-accent2 !bg-accent2/5">
+                                        {t}
+                                    </motion.span>
+                                ))}
+                            </motion.div>
+                        </div>
                     </motion.div>
                 </motion.div>
             </section>
@@ -289,10 +327,10 @@ export default function Home() {
                                 key={i}
                                 variants={iconItem}
                                 title={t.title}
-                                className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-surface border border-border rounded-xl hover:border-accent/40 hover:bg-accent/10 transition-all group card-glow cursor-default"
+                                className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-surface border border-border rounded-xl hover:border-accent/40 hover:bg-accent/5 transition-all group cursor-default"
                                 whileHover={{ y: -6, scale: 1.12, transition: { duration: 0.2 } }}
                             >
-                                <div className={`transform transition-all duration-300 drop-shadow-[0_0_12px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_15px_currentColor] ${t.color}`}>
+                                <div className={`transform transition-all duration-300 filter grayscale group-hover:grayscale-0 group-hover:opacity-100 opacity-40 ${t.color}`}>
                                     {t.icon}
                                 </div>
                             </motion.div>
@@ -341,14 +379,13 @@ export default function Home() {
 
                         {/* ══ VIEW MORE PROJECTS CARD (Fills the 4th slot) ══ */}
                         <motion.div variants={fadeUp} className="h-full">
-                            <Link to="/projects" className="group relative bg-surface/30 border border-dashed border-border hover:border-accent/40 rounded-xl overflow-hidden transition-all duration-500 flex flex-col items-center justify-center h-full min-h-[200px]">
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <Link to="/projects" className="group relative bg-surface/20 border border-dashed border-border hover:border-accent/30 rounded-xl overflow-hidden transition-all duration-300 flex flex-col items-center justify-center h-full min-h-[200px]">
                                 <div className="relative z-10 flex flex-col items-center gap-4 p-8 text-center">
-                                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center border border-accent/20 group-hover:scale-110 transition-transform duration-500">
+                                    <div className="w-12 h-12 rounded-full bg-accent/5 flex items-center justify-center border border-accent/25 group-hover:scale-105 transition-transform duration-300">
                                         <ArrowRight className="text-accent" size={20} />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-display font-medium text-white mb-2">View More Projects</h3>
+                                        <h3 className="text-lg font-display font-semibold text-white mb-2">View More Projects</h3>
                                         <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
                                             Explore the rest of my portfolio to see more projects in detail.
                                         </p>
