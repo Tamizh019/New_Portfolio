@@ -178,7 +178,8 @@ export const PORTFOLIO_DATA: UserData = {
       "isFeatured": true,
       "screenshots": [
         "/projects/data-talk/1.png",
-        "/projects/data-talk/2.png"
+        "/projects/data-talk/2.png",
+        "/projects/data-talk/3.png"
       ]
     },
     {
@@ -392,8 +393,7 @@ export const PORTFOLIO_DATA: UserData = {
       },
       "isFeatured": false,
       "screenshots": [
-        "/projects/dreamtrack/1.png",
-        "/projects/dreamtrack/2.png"
+        "/projects/dreamtrack/1.png"
       ]
     }
   ],
