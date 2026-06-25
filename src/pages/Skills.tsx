@@ -148,9 +148,10 @@ function CategoryBlock({ category, skills, accent }: { category: string; skills:
 }
 
 /* ── Skills Page ── */
-import { PORTFOLIO_DATA } from '../../constants';
+import { getLocalPortfolioData } from '../services/portfolio';
 
 export default function Skills() {
+    const PORTFOLIO_DATA = getLocalPortfolioData();
     const [activeFilter, setActiveFilter] = useState('All');
 
     const filtered = activeFilter === 'All'

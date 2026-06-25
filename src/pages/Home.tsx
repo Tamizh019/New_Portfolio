@@ -8,7 +8,7 @@ import {
 import { FaJava } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import { PORTFOLIO_DATA } from '../../constants';
+import { getLocalPortfolioData } from '../services/portfolio';
 import { useTypewriter, SectionHeading, ProjectCard } from '../components/Shared';
 
 /* ── Animation Variants ── */
@@ -48,6 +48,7 @@ const pillItem = {
 };
 
 export default function Home() {
+    const PORTFOLIO_DATA = getLocalPortfolioData();
     const containerRef = useRef<HTMLDivElement>(null);
 
     /* Scroll progress bar */

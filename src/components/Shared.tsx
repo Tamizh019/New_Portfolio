@@ -4,7 +4,7 @@ import {
     Terminal, Brain, Code2, Database, Layers, Cpu,
     Zap
 } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../constants';
+import { Project } from '../../types';
 import { Link } from 'react-router-dom';
 
 /* ─────────────────────────────────────
@@ -147,7 +147,7 @@ export function SkillCard({ category, skills, ...props }: { category: string; sk
     );
 }
 
-export function ProjectCard({ project, index, compact = false, ...props }: { project: typeof PORTFOLIO_DATA.projects[0]; index: number; compact?: boolean } & React.ComponentPropsWithoutRef<'div'>) {
+export function ProjectCard({ project, index, compact = false, ...props }: { project: Project; index: number; compact?: boolean } & React.ComponentPropsWithoutRef<'div'>) {
     const { ref, inView } = useInView();
     const gradients = [
         'from-accent/30 to-accent2/30',

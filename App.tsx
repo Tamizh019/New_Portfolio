@@ -7,6 +7,7 @@ import Skills from './src/pages/Skills';
 import Projects from './src/pages/Projects';
 import ProjectDetail from './src/pages/ProjectDetail';
 import Contact from './src/pages/Contact';
+import Admin from './src/pages/Admin';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -30,6 +31,7 @@ const App: React.FC = () => {
           <Route path="projects" element={<Projects />} />
           <Route path="projects/:id" element={<ProjectDetail />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="admin" element={<Admin />} />
         </Route>
       </Routes>
     </BrowserRouter>

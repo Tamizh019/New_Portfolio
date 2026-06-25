@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ReactLenis } from 'lenis/react';
 import ParticleBackground from '../../components/ParticleBackground';
 import AIChat from '../../components/AIChat';
-import { PORTFOLIO_DATA } from '../../constants';
+import { getLocalPortfolioData } from '../services/portfolio';
 import { NeuralNodes } from './Shared';
 
 const navLinks = [
@@ -28,6 +28,7 @@ const mobileLinkVariants = {
 };
 
 export default function Layout() {
+    const PORTFOLIO_DATA = getLocalPortfolioData();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const location = useLocation();

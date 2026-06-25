@@ -1,7 +1,7 @@
 import React from 'react';
 import { Terminal, Award, Compass, Lightbulb, Sparkles, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { PORTFOLIO_DATA } from '../../constants';
+import { getLocalPortfolioData } from '../services/portfolio';
 import { SectionHeading } from '../components/Shared';
 
 const fadeUp = {
@@ -15,6 +15,7 @@ const staggerContainer = {
 };
 
 export default function About() {
+    const PORTFOLIO_DATA = getLocalPortfolioData();
     // Separate timeline into experience and education
     const experience = PORTFOLIO_DATA.timeline.filter(item => item.type === 'experience');
     const education = PORTFOLIO_DATA.timeline.filter(item => item.type === 'education');

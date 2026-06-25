@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink, Zap, CheckCircle2, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { PORTFOLIO_DATA } from '../../constants';
+import { getLocalPortfolioData } from '../services/portfolio';
 
 // Tech-stack icons map
 import {
@@ -88,6 +88,7 @@ function TechBadge({ tech }: { tech: string }) {
 }
 
 export default function ProjectDetail() {
+    const PORTFOLIO_DATA = getLocalPortfolioData();
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -307,6 +308,50 @@ export default function ProjectDetail() {
                         )}
                     </div>
                 </div>
+
+                {/* Screenshot Interface Showcase */}
+                {project.screenshots && project.screenshots.length > 0 && (
+                    <motion.div
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true }}
+                        className="mt-16 pt-10 border-t border-white/5"
+                    >
+                        <h2 className="text-xl font-display font-bold text-white mb-8 flex items-center gap-3">
+                            <div className="w-[2px] h-4 rounded-full bg-accent" />
+                            Interface Showcase
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {project.screenshots.map((screenshot, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    className="bg-[#12121c] border border-border/70 rounded-xl overflow-hidden shadow-lg group hover:border-accent/20 transition-all duration-300"
+                                    whileHover={{ y: -4 }}
+                                >
+                                    {/* Mockup Header */}
+                                    <div className="bg-primary/60 px-4 py-2.5 border-b border-border/40 flex items-center justify-between">
+                                        <div className="flex gap-1.5">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                                            <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                                            <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                                        </div>
+                                        <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest font-semibold">[ Screen View {idx + 1} ]</span>
+                                    </div>
+                                    {/* Mockup Image */}
+                                    <div className="overflow-hidden aspect-[1.7/1] bg-primary/20">
+                                        <img
+                                            src={screenshot}
+                                            alt={`${project.title} screenshot ${idx + 1}`}
+                                            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
 
                 {/* Project Navigation */}
                 <motion.div

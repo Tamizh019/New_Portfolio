@@ -10,6 +10,7 @@ export interface Project {
   };
   isFeatured?: boolean;
   team?: { name: string; role?: string }[];
+  screenshots?: string[];
 }
 
 export interface SkillCategory {

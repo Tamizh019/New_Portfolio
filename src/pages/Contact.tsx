@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail, Send, CheckCircle2, AlertCircle, ChevronDown, Sparkles, Zap, Globe, Cpu, Rocket, Briefcase, Lightbulb, UserCircle2 } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../constants';
+import { getLocalPortfolioData } from '../services/portfolio';
 
 /* ─── Animation variants ─── */
 const fadeUp = {
@@ -182,6 +182,7 @@ function IntentSelect({ value, onChange }: { value: string; onChange: (v: string
 
 /* ─── Main Contact Component ─── */
 export default function Contact() {
+    const PORTFOLIO_DATA = getLocalPortfolioData();
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: '-80px' });
 

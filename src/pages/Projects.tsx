@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Zap, ExternalLink, Github } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../constants';
+import { ArrowRight, Zap, ExternalLink, Github, Monitor } from 'lucide-react';
+import { getLocalPortfolioData } from '../services/portfolio';
 import { SectionHeading } from '../components/Shared';
 
 const fadeUp = {
@@ -11,8 +11,85 @@ const fadeUp = {
 };
 
 export default function Projects() {
+    const PORTFOLIO_DATA = getLocalPortfolioData();
     const projects = PORTFOLIO_DATA.projects;
     const [activeIdx, setActiveIdx] = useState(0);
+    const [screenIdx, setScreenIdx] = useState(0);
+    const navigate = useNavigate();
+
+    // 3D Tilt Card Ref & States
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [tilt, setTilt] = useState({ x: 0, y: 0 });
+    const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+    const [hoveringCard, setHoveringCard] = useState(false);
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    // Reset screenshot slider when project changes
+    useEffect(() => {
+        setScreenIdx(0);
+    }, [activeIdx]);
+
+    // Handle 3D Tilt and Cursor Position
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        // Calculate rotation: maximum tilt angle is 8 degrees for smooth, subtle response
+        const rotateX = -((mouseY - height / 2) / (height / 2)) * 8;
+        const rotateY = ((mouseX - width / 2) / (width / 2)) * 8;
+
+        setTilt({ x: rotateX, y: rotateY });
+
+        // Calculate glare positions
+        const glareX = (mouseX / width) * 100;
+        const glareY = (mouseY / height) * 100;
+        setGlare({ x: glareX, y: glareY, opacity: 0.12 });
+        setMousePos({ x: mouseX, y: mouseY });
+    };
+
+    const handleMouseLeave = () => {
+        setTilt({ x: 0, y: 0 });
+        setGlare(prev => ({ ...prev, opacity: 0 }));
+        setHoveringCard(false);
+    };
+
+    const activeProject = projects[activeIdx];
+    const activeSlug = activeProject.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+    const handleCardClick = () => {
+        navigate(`/projects/${activeSlug}`);
+    };
+
+    // Render fallback mockup if no screenshots
+    const renderFallbackMockup = (project: typeof activeProject) => {
+        return (
+            <div className="w-full h-full bg-[#0a0a0f] flex flex-col p-6 font-mono text-xs text-slate-400 select-none overflow-hidden justify-between">
+                <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <span className="text-accent2 text-[9px] uppercase font-bold tracking-wider">// SYSTEM CONSOLE</span>
+                    <span className="text-slate-600 text-[9px]">{project.techStack[0]}</span>
+                </div>
+                <div className="my-auto space-y-2">
+                    <div className="text-white text-sm font-semibold truncate">&gt; {project.title}</div>
+                    <div className="text-slate-500 text-[11px] leading-relaxed line-clamp-3">{project.description}</div>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                        {project.techStack.map(t => (
+                            <span key={t} className="text-[8px] bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-accent">
+                                {t}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+                <div className="border-t border-white/5 pt-2 flex items-center justify-between text-[8px] text-slate-600">
+                    <span>STATUS: OPERATIONAL</span>
+                    <span>FPS: 60</span>
+                </div>
+            </div>
+        );
+    };
 
     return (
         <section className="py-20 relative flex-grow">
@@ -46,19 +123,21 @@ export default function Projects() {
                                     initial="hidden"
                                     whileInView="show"
                                     viewport={{ once: true, margin: '-60px' }}
-                                    className="border-b border-border/40 py-6 group cursor-pointer transition-all duration-300"
+                                    className={`border-b border-border/45 py-5 px-4 rounded-xl group cursor-pointer transition-all duration-300 ${isActive ? 'bg-[#151522]/35 border-l-2 border-accent2 pl-6' : 'hover:bg-[#151522]/10 border-l-2 border-transparent'
+                                        }`}
                                     onMouseEnter={() => setActiveIdx(i)}
+                                    onClick={() => navigate(`/projects/${slug}`)}
                                 >
-                                    <Link to={`/projects/${slug}`} className="flex items-start gap-6">
+                                    <div className="flex items-start gap-5">
                                         {/* Elegant Large Serif Index */}
-                                        <span className={`font-display text-3xl sm:text-4xl font-light leading-none select-none transition-all duration-300 -mt-1 w-12 flex-shrink-0 ${isActive ? 'text-accent2 font-semibold' : 'text-slate-700 group-hover:text-accent/60'
+                                        <span className={`font-display text-3xl sm:text-4xl font-light leading-none select-none transition-all duration-300 -mt-1 w-10 flex-shrink-0 ${isActive ? 'text-accent2 font-bold' : 'text-slate-600 group-hover:text-accent/80'
                                             }`}>
                                             {String(i + 1).padStart(2, '0')}
                                         </span>
 
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-3">
-                                                <h3 className={`text-xl sm:text-2xl font-display font-medium transition-all duration-300 ${isActive ? 'text-accent' : 'text-white group-hover:text-accent/80'
+                                                <h3 className={`text-xl sm:text-2xl font-display transition-all duration-300 ${isActive ? 'text-white font-bold text-glow' : 'text-slate-400 group-hover:text-slate-200'
                                                     }`}>
                                                     {project.title}
                                                 </h3>
@@ -86,44 +165,121 @@ export default function Projects() {
                                                 ))}
                                             </div>
                                         </div>
-                                    </Link>
+                                    </div>
                                 </motion.div>
                             );
                         })}
                     </div>
 
                     {/* ── Right Column: Sticky Project Details Preview (45% width, hidden on mobile) ── */}
-                    <div className="hidden md:block w-[45%] sticky top-28">
-                        <div className="bg-surface/20 border border-border/50 rounded-2xl p-8 backdrop-blur-md flex flex-col justify-between min-h-[460px] hover:border-accent/20 transition-all duration-300">
+                    <div className="hidden md:block w-[45%] sticky top-28 select-none">
+                        <div
+                            ref={containerRef}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
+                            onMouseEnter={() => setHoveringCard(true)}
+                            onClick={handleCardClick}
+                            style={{
+                                transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+                                transition: hoveringCard ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'
+                            }}
+                            className="bg-surface/20 border border-border/50 rounded-2xl p-6 backdrop-blur-md flex flex-col min-h-[490px] hover:border-accent/25 transition-colors duration-300 relative overflow-hidden cursor-pointer group shadow-xl"
+                        >
+                            {/* Mouse Follower Tooltip Badge */}
+                            {hoveringCard && (
+                                <div
+                                    className="absolute pointer-events-none bg-accent text-primary text-[10px] font-mono font-extrabold px-3 py-1.5 rounded-full shadow-lg z-30 flex items-center gap-1 uppercase tracking-wider transition-opacity duration-200"
+                                    style={{
+                                        left: mousePos.x,
+                                        top: mousePos.y,
+                                        transform: 'translate(-50%, -120%)',
+                                    }}
+                                >
+                                    GO IN ! <ArrowRight size={10} />
+                                </div>
+                            )}
+
+                            {/* Dynamic Glare Sheet */}
+                            <div
+                                className="absolute inset-0 pointer-events-none z-20 transition-opacity duration-300"
+                                style={{
+                                    background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, ${glare.opacity}) 0%, transparent 60%)`
+                                }}
+                            />
 
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeIdx}
-                                    initial={{ opacity: 0, y: 12 }}
+                                    initial={{ opacity: 0, y: 15 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                                    transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
                                     className="flex flex-col h-full justify-between flex-grow"
                                 >
-                                    <div>
-                                        {/* Card Header Label */}
-                                        <div className="flex items-center justify-between font-mono text-[9px] text-slate-500 uppercase tracking-widest border-b border-border/40 pb-4">
-                                            <span>[ Project Preview ]</span>
-                                            <span>Index {String(activeIdx + 1).padStart(2, '0')}</span>
+                                    <div className="flex flex-col flex-grow">
+                                        {/* Browser Mockup Header */}
+                                        <div className="bg-[#12121c] border border-border/75 rounded-t-xl px-4 py-3 flex items-center justify-between">
+                                            {/* Window Dots */}
+                                            <div className="flex gap-1.5 flex-shrink-0">
+                                                <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                                                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                                                <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                                            </div>
+
+                                            {/* URL Bar */}
+                                            <div className="bg-primary/45 border border-border/30 text-[9px] text-slate-500 font-mono px-3 py-0.5 rounded text-center flex-1 mx-4 max-w-[220px] select-none truncate">
+                                                tamizh.dev/{activeSlug}
+                                            </div>
+
+                                            {/* Image slider selector dots */}
+                                            <div className="flex gap-1.5 items-center flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+                                                {activeProject.screenshots && activeProject.screenshots.length > 0 && activeProject.screenshots.map((_, sIdx) => (
+                                                    <button
+                                                        key={sIdx}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            e.preventDefault();
+                                                            setScreenIdx(sIdx);
+                                                        }}
+                                                        className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${screenIdx === sIdx ? 'bg-accent w-3.5' : 'bg-slate-700 hover:bg-slate-500'}`}
+                                                        title={`View Screenshot ${sIdx + 1}`}
+                                                    />
+                                                ))}
+                                            </div>
                                         </div>
 
-                                        {/* Title & Pitch */}
-                                        <h4 className="text-2xl font-display font-medium text-white mt-6 mb-4 leading-tight">
-                                            {projects[activeIdx].title}
-                                        </h4>
-                                        <p className="text-slate-400 text-sm font-light leading-relaxed mb-6">
-                                            {projects[activeIdx].description}
+                                        {/* Browser Mockup Body Screen */}
+                                        <div className="border-x border-b border-border/75 rounded-b-xl overflow-hidden aspect-[1.8/1] bg-primary/20 relative group-hover:border-accent/15 transition-colors">
+                                            {activeProject.screenshots && activeProject.screenshots.length > 0 ? (
+                                                <img
+                                                    src={activeProject.screenshots[screenIdx]}
+                                                    alt={`${activeProject.title} screenshot ${screenIdx + 1}`}
+                                                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                                                    loading="lazy"
+                                                />
+                                            ) : (
+                                                renderFallbackMockup(activeProject)
+                                            )}
+                                        </div>
+
+                                        {/* Title & Short details */}
+                                        <div className="mt-5 flex items-baseline justify-between border-b border-border/30 pb-3">
+                                            <h4 className="text-xl font-display font-medium text-white tracking-wide">
+                                                {activeProject.title}
+                                            </h4>
+                                            <span className="font-mono text-[10px] text-accent2 tracking-wider">
+                                                /{String(activeIdx + 1).padStart(2, '0')}
+                                            </span>
+                                        </div>
+
+                                        <p className="text-slate-400 text-xs font-light leading-relaxed mt-3 mb-4">
+                                            {activeProject.description}
                                         </p>
 
                                         {/* Key Tech Badges */}
-                                        <div className="flex flex-wrap gap-1.5 mb-8">
-                                            {projects[activeIdx].techStack.map((tech) => (
-                                                <span key={tech} className="tech-pill text-xs">
+                                        <div className="flex flex-wrap gap-1.5 mb-5">
+                                            {activeProject.techStack.map((tech) => (
+                                                <span key={tech} className="tech-pill text-[10px] px-2 py-0.5">
                                                     {tech}
                                                 </span>
                                             ))}
@@ -133,29 +289,26 @@ export default function Projects() {
                                     {/* Action Links */}
                                     <div className="mt-auto space-y-4">
                                         {/* Primary View Details Button */}
-                                        <Link
-                                            to={`/projects/${projects[activeIdx].title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`}
-                                            className="flex items-center justify-center gap-2 bg-accent text-primary font-bold py-3 rounded-lg hover:opacity-90 transition-all text-sm w-full"
-                                        >
-                                            View Case Study <ArrowRight size={14} />
-                                        </Link>
+                                        <div className="flex items-center justify-center gap-2 bg-accent text-primary font-bold py-2.5 rounded-lg hover:opacity-90 transition-all text-xs w-full uppercase tracking-wider font-mono">
+                                            View Full Case Study <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                                        </div>
 
                                         {/* External Links */}
-                                        <div className="flex gap-4 items-center justify-center pt-2 border-t border-border/30">
-                                            {projects[activeIdx].links?.github && (
+                                        <div className="flex gap-4 items-center justify-center pt-2 border-t border-border/30" onClick={(e) => e.stopPropagation()}>
+                                            {activeProject.links?.github && (
                                                 <a
-                                                    href={projects[activeIdx].links.github} target="_blank" rel="noreferrer"
-                                                    className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-accent transition-colors font-medium"
+                                                    href={activeProject.links.github} target="_blank" rel="noreferrer"
+                                                    className="flex items-center gap-1.5 text-[11px] text-slate-400 hover:text-accent transition-colors font-medium font-mono"
                                                 >
-                                                    <Github size={13} /> Code
+                                                    <Github size={12} /> Code
                                                 </a>
                                             )}
-                                            {projects[activeIdx].links?.demo && (
+                                            {activeProject.links?.demo && (
                                                 <a
-                                                    href={projects[activeIdx].links.demo} target="_blank" rel="noreferrer"
-                                                    className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-accent transition-colors font-medium"
+                                                    href={activeProject.links.demo} target="_blank" rel="noreferrer"
+                                                    className="flex items-center gap-1.5 text-[11px] text-slate-400 hover:text-accent transition-colors font-medium font-mono"
                                                 >
-                                                    <ExternalLink size={13} /> Live Demo
+                                                    <ExternalLink size={12} /> Live Demo
                                                 </a>
                                             )}
                                         </div>
@@ -172,3 +325,4 @@ export default function Projects() {
         </section>
     );
 }
+
