@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink, Zap, CheckCircle2, Clock } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getLocalPortfolioData } from '../services/portfolio';
 
 // Tech-stack icons map
@@ -97,9 +97,28 @@ export default function ProjectDetail() {
     );
     const project = PORTFOLIO_DATA.projects[projectIndex];
 
+    const [selectedImgIdx, setSelectedImgIdx] = useState<number | null>(null);
+
     useEffect(() => {
         if (!project) navigate('/projects');
     }, [project, navigate]);
+
+    useEffect(() => {
+        if (selectedImgIdx === null || !project || !project.screenshots) return;
+        
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                setSelectedImgIdx(null);
+            } else if (e.key === 'ArrowRight') {
+                setSelectedImgIdx(prev => (prev! === project.screenshots!.length - 1 ? 0 : prev! + 1));
+            } else if (e.key === 'ArrowLeft') {
+                setSelectedImgIdx(prev => (prev! === 0 ? project.screenshots!.length - 1 : prev! - 1));
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedImgIdx, project]);
 
     if (!project) return null;
 
@@ -326,7 +345,8 @@ export default function ProjectDetail() {
                             {project.screenshots.map((screenshot, idx) => (
                                 <motion.div
                                     key={idx}
-                                    className="bg-[#12121c] border border-border/70 rounded-xl overflow-hidden shadow-lg group hover:border-accent/20 transition-all duration-300"
+                                    onClick={() => setSelectedImgIdx(idx)}
+                                    className="bg-[#12121c] border border-border/70 rounded-xl overflow-hidden shadow-lg group hover:border-accent/20 transition-all duration-300 cursor-zoom-in"
                                     whileHover={{ y: -4 }}
                                 >
                                     {/* Mockup Header */}
@@ -387,6 +407,74 @@ export default function ProjectDetail() {
                 </motion.div>
 
             </div>
+
+            {/* ── SCREENSHOT LIGHTBOX OVERLAY ── */}
+            <AnimatePresence>
+                {selectedImgIdx !== null && project.screenshots && (
+                    <div 
+                        className="fixed inset-0 bg-[#050508]/95 z-50 flex flex-col items-center justify-center p-4 sm:p-10 backdrop-blur-xl cursor-zoom-out"
+                        onClick={() => setSelectedImgIdx(null)}
+                    >
+                        {/* Close Button */}
+                        <button 
+                            onClick={() => setSelectedImgIdx(null)}
+                            className="absolute top-6 right-6 text-slate-500 hover:text-white text-3xl font-light cursor-pointer select-none transition-colors w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/5"
+                        >
+                            ×
+                        </button>
+
+                        {/* Lightbox Header / Index Indicator */}
+                        <div className="absolute top-6 left-6 font-mono text-xs text-slate-500 flex items-center gap-3">
+                            <span className="text-accent text-[9px] uppercase font-bold tracking-widest">[ LIGHTBOX VIEW ]</span>
+                            <span>•</span>
+                            <span>{project.title}</span>
+                            <span>•</span>
+                            <span className="text-white font-bold">{selectedImgIdx + 1} of {project.screenshots.length}</span>
+                        </div>
+
+                        {/* Navigation Controls */}
+                        <div className="relative w-full max-w-5xl flex items-center justify-center gap-4" onClick={(e) => e.stopPropagation()}>
+                            {/* Left Arrow */}
+                            {project.screenshots.length > 1 && (
+                                <button
+                                    onClick={() => setSelectedImgIdx(prev => (prev! === 0 ? project.screenshots!.length - 1 : prev! - 1))}
+                                    className="absolute left-2 sm:-left-16 p-3 bg-white/[0.02] border border-white/5 hover:border-accent/30 text-slate-400 hover:text-white rounded-full transition-all cursor-pointer shadow-lg hover:scale-105"
+                                >
+                                    <ArrowLeft size={20} />
+                                </button>
+                            )}
+
+                            {/* Main Image */}
+                            <motion.img 
+                                key={selectedImgIdx}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.3, ease: 'easeOut' }}
+                                src={project.screenshots[selectedImgIdx]}
+                                alt={`${project.title} screenshot zoom`}
+                                className="max-w-full max-h-[80vh] object-contain rounded-xl border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.8)]"
+                            />
+
+                            {/* Right Arrow */}
+                            {project.screenshots.length > 1 && (
+                                <button
+                                    onClick={() => setSelectedImgIdx(prev => (prev! === project.screenshots!.length - 1 ? 0 : prev! + 1))}
+                                    className="absolute right-2 sm:-right-16 p-3 bg-white/[0.02] border border-white/5 hover:border-accent/30 text-slate-400 hover:text-white rounded-full transition-all cursor-pointer shadow-lg hover:scale-105"
+                                >
+                                    <ArrowLeft size={20} className="rotate-180" />
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Muted Instructions Footer */}
+                        <div className="absolute bottom-6 font-mono text-[9px] text-slate-600 tracking-wider uppercase select-none">
+                            / Click anywhere to close • Use left/right keys or click arrows to browse
+                        </div>
+                    </div>
+                )}
+            </AnimatePresence>
+
         </section>
     );
 }
