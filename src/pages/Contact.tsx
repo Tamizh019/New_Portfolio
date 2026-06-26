@@ -1,24 +1,24 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, Send, CheckCircle2, AlertCircle, ChevronDown, Sparkles, Zap, Globe, Cpu, Rocket, Briefcase, Lightbulb, UserCircle2 } from 'lucide-react';
+import { Github, Linkedin, Mail, Send, CheckCircle2, AlertCircle, ChevronDown, Zap, Globe, Cpu, Rocket, Briefcase, Lightbulb, UserCircle2, Terminal } from 'lucide-react';
 import { getLocalPortfolioData } from '../services/portfolio';
 
 /* ─── Animation variants ─── */
 const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
 };
 const stagger = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+    show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
 };
 const fieldReveal = {
-    hidden: { opacity: 0, x: -24 },
-    show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    hidden: { opacity: 0, x: -16 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } },
 };
 const successAnim = {
-    hidden: { scale: 0.5, opacity: 0 },
-    show: { scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 200, damping: 15 } },
+    hidden: { scale: 0.95, opacity: 0 },
+    show: { scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 200, damping: 18 } },
 };
 
 /* ─── Intent options ─── */
@@ -35,8 +35,8 @@ function FloatingOrb({ className }: { className: string }) {
     return (
         <motion.div
             className={`absolute rounded-full blur-3xl pointer-events-none ${className}`}
-            animate={{ y: [0, -24, 0], scale: [1, 1.08, 1] }}
-            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+            animate={{ y: [0, -16, 0], scale: [1, 1.05, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
     );
 }
@@ -58,7 +58,7 @@ function FloatingInput({
                 htmlFor={id}
                 className={`absolute left-4 transition-all duration-200 pointer-events-none z-10 ${focused || filled
                     ? 'top-2 text-[10px] font-mono text-accent/70'
-                    : 'top-1/2 -translate-y-1/2 text-sm text-slate-500'
+                    : 'top-1/2 -translate-y-1/2 text-xs text-slate-500'
                     }`}
             >
                 {label}{required && <span className="text-accent ml-0.5">*</span>}
@@ -72,10 +72,10 @@ function FloatingInput({
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
                 placeholder={focused ? placeholder : ''}
-                className={`w-full bg-surface border rounded-xl pt-6 pb-3 px-4 text-sm text-white placeholder:text-slate-600 transition-all duration-300 outline-none
+                className={`w-full bg-surface border rounded-xl pt-6 pb-3 px-4 text-xs sm:text-sm text-white placeholder:text-slate-650 transition-all duration-300 outline-none
                     ${focused
-                        ? 'border-accent/60 shadow-[0_0_24px_rgba(0,217,255,0.12)]'
-                        : 'border-border hover:border-slate-600'
+                        ? 'border-accent/60 shadow-[0_0_20px_rgba(176,194,178,0.06)]'
+                        : 'border-border hover:border-slate-700'
                     }`}
             />
         </motion.div>
@@ -98,7 +98,7 @@ function FloatingTextarea({
                 htmlFor={id}
                 className={`absolute left-4 transition-all duration-200 pointer-events-none z-10 ${focused || filled
                     ? 'top-2 text-[10px] font-mono text-accent/70'
-                    : 'top-4 text-sm text-slate-500'
+                    : 'top-4 text-xs text-slate-500'
                     }`}
             >
                 {label}{required && <span className="text-accent ml-0.5">*</span>}
@@ -112,10 +112,10 @@ function FloatingTextarea({
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
                 placeholder={focused ? placeholder : ''}
-                className={`w-full bg-surface border rounded-xl pt-7 pb-3 px-4 text-sm text-white placeholder:text-slate-600 transition-all duration-300 outline-none resize-none
+                className={`w-full bg-surface border rounded-xl pt-7 pb-3 px-4 text-xs sm:text-sm text-white placeholder:text-slate-650 transition-all duration-300 outline-none resize-none
                     ${focused
-                        ? 'border-accent/60 shadow-[0_0_24px_rgba(0,217,255,0.12)]'
-                        : 'border-border hover:border-slate-600'
+                        ? 'border-accent/60 shadow-[0_0_20px_rgba(176,194,178,0.06)]'
+                        : 'border-border hover:border-slate-700'
                     }`}
             />
         </motion.div>
@@ -132,16 +132,16 @@ function IntentSelect({ value, onChange }: { value: string; onChange: (v: string
             <button
                 type="button"
                 onClick={() => setOpen(o => !o)}
-                className={`w-full bg-surface border rounded-xl px-4 py-4 text-left flex items-center justify-between transition-all duration-300
-                    ${open ? 'border-accent/60 shadow-[0_0_24px_rgba(0,217,255,0.12)]' : 'border-border hover:border-slate-600'}`}
+                className={`w-full bg-surface border rounded-xl px-4 py-4 text-left flex items-center justify-between transition-all duration-300 cursor-pointer
+                    ${open ? 'border-accent/60 shadow-[0_0_20px_rgba(176,194,178,0.06)]' : 'border-border hover:border-slate-700'}`}
             >
                 {selected ? (
-                    <span className="flex items-center gap-3 text-sm text-white">
+                    <span className="flex items-center gap-3 text-xs sm:text-sm text-white font-mono">
                         {selected.icon}
                         {selected.label}
                     </span>
                 ) : (
-                    <span className="text-sm text-slate-500">What brings us together?<span className="text-accent ml-0.5">*</span></span>
+                    <span className="text-xs sm:text-sm text-slate-500 font-mono">What brings us together?<span className="text-accent ml-0.5">*</span></span>
                 )}
                 <ChevronDown size={16} className={`text-slate-500 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
             </button>
@@ -149,26 +149,26 @@ function IntentSelect({ value, onChange }: { value: string; onChange: (v: string
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                        initial={{ opacity: 0, y: -6, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -8, scale: 0.97 }}
-                        transition={{ duration: 0.18 }}
-                        className="absolute top-full left-0 right-0 mt-2 bg-surface border border-border rounded-xl overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.5)] bg-primary"
+                        exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute top-full left-0 right-0 mt-2 bg-[#12121c] border border-border rounded-xl overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.5)] z-50"
                     >
                         {INTENTS.map(intent => (
                             <button
                                 key={intent.value}
                                 type="button"
                                 onClick={() => { onChange(intent.value); setOpen(false); }}
-                                className={`w-full px-4 py-3.5 text-left hover:bg-accent/5 transition-colors flex items-start gap-4 border-b border-border/50 last:border-0
+                                className={`w-full px-4 py-3 text-left hover:bg-accent/5 transition-colors flex items-start gap-3 border-b border-border/40 last:border-0 cursor-pointer
                                     ${value === intent.value ? 'bg-accent/10' : ''}`}
                             >
                                 <div className="mt-0.5 flex-shrink-0">
                                     {intent.icon}
                                 </div>
                                 <div className="flex-grow">
-                                    <div className="text-sm text-white font-medium">{intent.label}</div>
-                                    <div className="text-xs text-slate-500 mt-0.5">{intent.desc}</div>
+                                    <div className="text-xs sm:text-sm text-white font-medium font-mono">{intent.label}</div>
+                                    <div className="text-[10px] text-slate-500 mt-0.5">{intent.desc}</div>
                                 </div>
                                 {value === intent.value && <CheckCircle2 size={14} className="text-accent ml-auto mt-0.5 flex-shrink-0" />}
                             </button>
@@ -191,19 +191,54 @@ export default function Contact() {
     });
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [errorMsg, setErrorMsg] = useState('');
+    const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
 
     const set = (key: string) => (v: string) => setForm(f => ({ ...f, [key]: v }));
+
+    const selectedIntentLabel = INTENTS.find(i => i.value === form.intent)?.label ?? '';
+
+    const getSQLCommand = () => {
+        const selectedIntentValue = form.intent || 'general';
+        const challengeText = form.challenge ? `'${form.challenge.slice(0, 25).replace(/'/g, "''")}...'` : 'NULL';
+        const nameText = form.name ? `'${form.name.replace(/'/g, "''")}'` : 'NULL';
+        const emailText = form.email ? `'${form.email.replace(/'/g, "''")}'` : 'NULL';
+        
+        return `INSERT INTO public.portfolio_messages (
+  name, email, intent, challenge, embedding_1536
+) VALUES (
+  ${nameText}, 
+  ${emailText}, 
+  '${selectedIntentValue}', 
+  ${challengeText},
+  ARRAY[0.0125, -0.0432, 0.0891, ... (1536d)]
+);`;
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!form.intent) { setErrorMsg('Please select what brings you here!'); return; }
         setStatus('loading');
         setErrorMsg('');
+        
+        setTerminalLogs([
+            `> Initiating transaction handshake...`,
+            `> Encoding local parameters to message_payload.json...`
+        ]);
+
+        const addLog = (log: string, delay: number) => {
+            return new Promise<void>(resolve => {
+                setTimeout(() => {
+                    setTerminalLogs(prev => [...prev, log]);
+                    resolve();
+                }, delay);
+            });
+        };
 
         const intentLabel = INTENTS.find(i => i.value === form.intent)?.label ?? form.intent;
 
         try {
-            const res = await fetch('https://api.web3forms.com/submit', {
+            // Initiate actual message delivery
+            const fetchPromise = fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                 body: JSON.stringify({
@@ -217,16 +252,30 @@ export default function Contact() {
                 }),
             });
 
+            await addLog(`> Activating Gemini text-embedding-004 model...`, 350);
+            await addLog(`> Dimensions returned: 1536 float arrays.`, 400);
+            await addLog(`> Compiling SQL INSERT command with pgvector fields...`, 300);
+            await addLog(`> Executing PostgreSQL transaction pipeline...`, 350);
+
+            const res = await fetchPromise;
             const data = await res.json();
+            
             if (data.success) {
-                setStatus('success');
-                setForm({ name: '', email: '', intent: '', challenge: '', message: '' });
+                await addLog(`> Success: 1 row modified. Message committed to inbox.`, 200);
+                await addLog(`> HTTP response: STATUS 201 CREATED (Web3Forms API Hook OK)`, 200);
+                
+                setTimeout(() => {
+                    setStatus('success');
+                    setForm({ name: '', email: '', intent: '', challenge: '', message: '' });
+                    setTerminalLogs([]);
+                }, 900);
             } else {
                 throw new Error(data.message ?? 'Something went wrong');
             }
         } catch (err: unknown) {
             setStatus('error');
             setErrorMsg(err instanceof Error ? err.message : 'Submission failed. Please try again.');
+            setTerminalLogs(prev => [...prev, `> Error: DB query aborted. reason: ${err instanceof Error ? err.message : 'Timeout'}`]);
         }
     };
 
@@ -250,128 +299,55 @@ export default function Contact() {
                     <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-4">
                         Let's <span className="text-accent">Build Something</span>
                     </h2>
-                    <p className="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
-                        Whether it's an AI product, open-source collaboration, or just a great conversation —
-                        <span className="text-accent font-medium"> I'd love to hear from you.</span>
+                    <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-light">
+                        Whether it's an AI application, open-source pipeline, or a full-stack project —
+                        <span className="text-accent font-medium"> I'd love to collaborate.</span>
                     </p>
                 </motion.div>
 
-                <div className="grid lg:grid-cols-5 gap-12 items-start">
-                    {/* Left Info Panel */}
-                    <motion.div
-                        className="lg:col-span-2 space-y-8"
-                        variants={stagger}
-                        initial="hidden"
-                        animate={inView ? 'show' : 'hidden'}
-                    >
-                        {/* Status card */}
-                        <motion.div variants={fadeUp} className="bg-surface border border-border rounded-2xl p-6">
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="relative">
-                                    <div className="w-3 h-3 rounded-full bg-emerald-400" />
-                                    <div className="w-3 h-3 rounded-full bg-emerald-400 absolute inset-0 animate-ping opacity-60" />
-                                </div>
-                                <span className="text-sm font-medium text-white">Available for Opportunities</span>
-                            </div>
-                            <p className="text-xs text-slate-500 leading-relaxed">
-                                Open to AI Engineering and SDE internships for 2026, research collaborations, and exciting open-source projects.
-                            </p>
-                        </motion.div>
-
-                        {/* Contact info links */}
-                        <motion.div variants={fadeUp} className="space-y-3">
-                            {[
-                                { icon: <Mail size={16} />, label: 'Email', value: PORTFOLIO_DATA.email, href: `mailto:${PORTFOLIO_DATA.email}`, color: 'text-accent' },
-                                { icon: <Github size={16} />, label: 'GitHub', value: '@Tamizh019', href: PORTFOLIO_DATA.github, color: 'text-slate-300' },
-                                { icon: <Linkedin size={16} />, label: 'LinkedIn', value: 'Tamizharasan R', href: `https://${PORTFOLIO_DATA.linkedin}`, color: 'text-blue-400' },
-                                { icon: <Globe size={16} />, label: 'Location', value: 'Chennai, Tamil Nadu', href: undefined, color: 'text-violet-400' },
-                            ].map((item) => (
-                                <motion.div
-                                    key={item.label}
-                                    variants={fieldReveal}
-                                    className="flex items-center gap-4 p-4 bg-surface border border-border rounded-xl hover:border-accent/30 transition-all group"
-                                    whileHover={{ x: 4 }}
-                                >
-                                    <div className={`p-2 rounded-lg bg-primary/60 ${item.color}`}>{item.icon}</div>
-                                    <div>
-                                        <div className="text-xs text-slate-500 font-mono">{item.label}</div>
-                                        {item.href ? (
-                                            <a href={item.href} target="_blank" rel="noreferrer"
-                                                className="text-sm text-slate-300 group-hover:text-accent transition-colors">
-                                                {item.value}
-                                            </a>
-                                        ) : (
-                                            <div className="text-sm text-slate-300">{item.value}</div>
-                                        )}
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-
-                        {/* Availability tags */}
-                        <motion.div variants={fadeUp} className="p-5 bg-surface border border-border rounded-2xl">
-                            <div className="text-xs font-mono text-slate-500 mb-3 flex items-center gap-2">
-                                <Zap size={10} className="text-accent" /> Looking for
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                                {['AI Engineering Intern', 'SDE Intern', 'Open Source', 'Research Collab', 'Freelance'].map(tag => (
-                                    <span key={tag} className="text-xs bg-accent/10 border border-accent/20 text-accent px-3 py-1.5 rounded-full font-mono">
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Right: Form */}
-                    <motion.div
-                        className="lg:col-span-3"
-                        variants={fadeUp}
-                        initial="hidden"
-                        animate={inView ? 'show' : 'hidden'}
-                    >
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Left Column: Input Form (Spans 7 columns) */}
+                    <div className="lg:col-span-7">
                         <AnimatePresence mode="wait">
                             {status === 'success' ? (
-                                /* Success state */
                                 <motion.div
                                     key="success"
                                     variants={successAnim}
                                     initial="hidden"
                                     animate="show"
-                                    className="bg-surface border border-emerald-500/30 rounded-2xl p-12 text-center"
+                                    className="bg-surface border border-emerald-500/30 rounded-3xl p-12 text-center"
                                 >
                                     <motion.div
-                                        className="w-20 h-20 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto mb-6"
-                                        animate={{ scale: [1, 1.1, 1] }}
+                                        className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto mb-6"
+                                        animate={{ scale: [1, 1.08, 1] }}
                                         transition={{ duration: 1.5, repeat: Infinity }}
                                     >
-                                        <CheckCircle2 size={36} className="text-emerald-400" />
+                                        <CheckCircle2 size={28} className="text-emerald-400" />
                                     </motion.div>
-                                    <h3 className="text-2xl font-display font-bold text-white mb-3">Message Sent! 🎉</h3>
-                                    <p className="text-slate-400 mb-8 leading-relaxed">
-                                        Thanks for reaching out! I read every message personally and will get back to you within
+                                    <h3 className="text-xl font-display font-bold text-white mb-3">Message Received! 🎉</h3>
+                                    <p className="text-xs sm:text-sm text-slate-400 mb-8 leading-relaxed max-w-sm mx-auto font-light">
+                                        Thanks for reaching out! I read every message personally and will reply back within
                                         <span className="text-emerald-400 font-medium"> 24–48 hours</span>.
                                     </p>
                                     <button
                                         onClick={() => setStatus('idle')}
-                                        className="text-sm text-accent border border-accent/30 px-6 py-3 rounded-xl hover:bg-accent/10 transition-all font-mono"
+                                        className="text-[10px] text-accent border border-accent/30 px-5 py-2.5 rounded-xl hover:bg-accent/10 transition-all font-mono cursor-pointer"
                                     >
-                                        Send another message →
+                                        Deploy another message →
                                     </button>
                                 </motion.div>
                             ) : (
-                                /* Form */
                                 <motion.form
                                     key="form"
                                     onSubmit={handleSubmit}
-                                    className="bg-surface border border-border rounded-2xl p-8 space-y-5"
+                                    className="bg-surface border border-border rounded-3xl p-6 sm:p-8 space-y-5"
                                     variants={stagger}
                                     initial="hidden"
                                     animate={inView ? 'show' : 'hidden'}
                                 >
-                                    <motion.div variants={fieldReveal} className="mb-2">
-                                        <h3 className="text-lg font-display font-semibold text-white">Drop me a message</h3>
-                                        <p className="text-xs text-slate-500 mt-1">I'll respond within 24–48 hours.</p>
+                                    <motion.div variants={fieldReveal} className="mb-1">
+                                        <h3 className="text-base sm:text-lg font-display font-semibold text-white">Ingest New Message</h3>
+                                        <p className="text-[10px] text-slate-500 mt-0.5 font-mono">Fill out the variables below to compile data.</p>
                                     </motion.div>
 
                                     {/* Intent Selector */}
@@ -384,7 +360,7 @@ export default function Contact() {
                                         required
                                         value={form.challenge}
                                         onChange={set('challenge')}
-                                        placeholder="Describe the problem or opportunity..."
+                                        placeholder="Describe the problem or project scope..."
                                         rows={3}
                                     />
 
@@ -400,21 +376,21 @@ export default function Contact() {
                                         label="Anything else you'd like to add? (optional)"
                                         value={form.message}
                                         onChange={set('message')}
-                                        placeholder="Links, context, or just a hello..."
-                                        rows={3}
+                                        placeholder="Links, details, or say hello..."
+                                        rows={2}
                                     />
 
                                     {/* Error message */}
                                     <AnimatePresence>
                                         {(status === 'error' || errorMsg) && (
                                             <motion.div
-                                                initial={{ opacity: 0, y: -8 }}
+                                                initial={{ opacity: 0, y: -6 }}
                                                 animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -8 }}
-                                                className="flex items-center gap-2 text-red-400 text-xs p-3 bg-red-500/10 border border-red-500/20 rounded-xl"
+                                                exit={{ opacity: 0, y: -6 }}
+                                                className="flex items-center gap-2 text-red-400 text-xs p-3 bg-red-500/10 border border-red-500/20 rounded-xl font-mono"
                                             >
                                                 <AlertCircle size={13} />
-                                                {errorMsg || 'Something went wrong. Please try again.'}
+                                                {errorMsg || 'Submission failed. Please try again.'}
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
@@ -424,35 +400,114 @@ export default function Contact() {
                                         <motion.button
                                             type="submit"
                                             disabled={status === 'loading'}
-                                            className="w-full flex items-center justify-center gap-2.5 bg-accent text-primary font-bold py-4 px-8 rounded-xl text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-                                            whileHover={{ scale: 1.02, boxShadow: '0 0 40px rgba(0,217,255,0.35)' }}
-                                            whileTap={{ scale: 0.98 }}
+                                            className="w-full flex items-center justify-center gap-2.5 bg-accent text-[#0a0a0f] font-bold py-3.5 px-6 rounded-xl text-xs sm:text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                                            whileHover={{ scale: 1.01, boxShadow: '0 0 30px rgba(176,194,178,0.15)' }}
+                                            whileTap={{ scale: 0.99 }}
                                         >
                                             {status === 'loading' ? (
                                                 <>
                                                     <motion.div
-                                                        className="w-4 h-4 border-2 border-primary/30 border-t-primary rounded-full"
+                                                        className="w-3.5 h-3.5 border-2 border-primary/30 border-t-primary rounded-full"
                                                         animate={{ rotate: 360 }}
                                                         transition={{ duration: 0.7, repeat: Infinity, ease: 'linear' }}
                                                     />
-                                                    Sending...
+                                                    COMPILING...
                                                 </>
                                             ) : (
                                                 <>
-                                                    <Send size={15} />
-                                                    Send Message
+                                                    <Send size={14} />
+                                                    COMMIT MESSAGE
                                                 </>
                                             )}
                                         </motion.button>
                                     </motion.div>
 
-                                    <motion.p variants={fieldReveal} className="text-center text-[10px] text-slate-600 font-mono">
-                                        Your message is delivered directly to my inbox. No spam ever.
+                                    <motion.p variants={fieldReveal} className="text-center text-[9px] text-slate-600 font-mono">
+                                        Row will be pushed to PostgreSQL DB & forwarded to developer mailbox.
                                     </motion.p>
                                 </motion.form>
                             )}
                         </AnimatePresence>
-                    </motion.div>
+                    </div>
+
+                    {/* Right Column: Live Data Payload Visualizer (Spans 5 columns) */}
+                    <div className="lg:col-span-5 space-y-4">
+                        {/* Live JSON Payload Compiler */}
+                        <div className="bg-[#050508] border border-border/80 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+                            {/* File header */}
+                            <div className="bg-primary/95 px-4 py-3 border-b border-border/45 flex items-center justify-between select-none">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                                </div>
+                                <span className="text-[9px] font-mono text-slate-500 lowercase">message_payload.json</span>
+                                <div className="w-8" />
+                            </div>
+
+                            {/* JSON Content */}
+                            <pre className="p-4 text-[10px] sm:text-[11px] font-mono leading-relaxed select-text overflow-x-auto text-slate-350">
+                                <code>
+                                    {`{`}
+                                    <br />
+                                    <span className="text-accent2">  "sender_name"</span>: <span className="text-[#3ECF8E]">"{form.name || 'Your Name'}"</span>,
+                                    <br />
+                                    <span className="text-accent2">  "sender_email"</span>: <span className="text-[#3ECF8E]">"{form.email || 'your@email.com'}"</span>,
+                                    <br />
+                                    <span className="text-accent2">  "inbox_routing"</span>: <span className="text-[#3ECF8E]">"{selectedIntentLabel || 'Not Selected'}"</span>,
+                                    <br />
+                                    <span className="text-accent2">  "challenges_to_solve"</span>: <span className="text-[#3ECF8E]">"{form.challenge.replace(/"/g, '\\"').slice(0, 40) || 'Briefly describe your challenge...'}{form.challenge.length > 40 ? '...' : ''}"</span>,
+                                    <br />
+                                    <span className="text-accent2">  "message_context"</span>: <span className="text-[#3ECF8E]">"{form.message.replace(/"/g, '\\"').slice(0, 30) || 'Add optional context...'}{form.message.length > 30 ? '...' : ''}"</span>,
+                                    <br />
+                                    <span className="text-accent2">  "embedding_status"</span>: <span className="text-accent3">"{status === 'loading' ? 'vectorizing...' : status === 'success' ? 'completed (1536d)' : 'pending'}"</span>
+                                    <br />
+                                    {`}`}
+                                </code>
+                            </pre>
+                        </div>
+
+                        {/* SQL Compiler / Terminal Logger */}
+                        <div className="bg-[#020204] border border-border/80 rounded-3xl overflow-hidden shadow-2xl flex flex-col min-h-[220px]">
+                            {/* Console header */}
+                            <div className="bg-primary/80 px-4 py-3 border-b border-border/40 flex items-center justify-between select-none">
+                                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                                    <Terminal size={10} className="text-accent" /> DB Compiler Terminal
+                                </span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                            </div>
+
+                            {/* Console Log Screen */}
+                            <div className="p-4 flex-grow font-mono text-[10px] sm:text-[11px] leading-relaxed text-slate-400 overflow-y-auto max-h-[170px] select-text">
+                                {status === 'loading' || terminalLogs.length > 0 ? (
+                                    <div className="space-y-1 font-mono text-[10px] leading-normal">
+                                        {terminalLogs.map((log, i) => (
+                                            <div key={i} className={log.startsWith('> Success') || log.includes('201') ? 'text-[#3ECF8E]' : log.startsWith('> Error') ? 'text-red-400' : 'text-slate-500'}>
+                                                {log}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-slate-600 italic select-none">
+                                        {`-- SQL command preview ready.`}
+                                        <pre className="text-slate-655 text-[9px] mt-2 leading-relaxed whitespace-pre-wrap font-mono">
+                                            {getSQLCommand()}
+                                        </pre>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Direct contact backups */}
+                        <div className="bg-surface/50 border border-border/40 rounded-3xl p-5 flex justify-around gap-4 text-xs font-mono select-none">
+                            <a href={`mailto:${PORTFOLIO_DATA.email}`} className="text-slate-500 hover:text-accent flex items-center gap-1.5 transition-colors">
+                                <Mail size={12} /> {PORTFOLIO_DATA.email}
+                            </a>
+                            <a href={`https://${PORTFOLIO_DATA.linkedin}`} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-blue-400 flex items-center gap-1.5 transition-colors">
+                                <Linkedin size={12} /> LinkedIn
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

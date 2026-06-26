@@ -121,7 +121,7 @@ export default function Home() {
 
                     <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-10 animate-[fadeInUp_0.7s_ease-out_0.4s_forwards] opacity-0">
                         <Link to="/projects"
-                            className="flex items-center gap-2 bg-accent text-primary font-bold px-6 py-3 rounded hover:opacity-90 transition-all text-sm">
+                            className="flex items-center gap-2 bg-accent !text-[#0a0a0f] visited:!text-[#0a0a0f] hover:!text-[#0a0a0f] font-bold px-6 py-3 rounded hover:opacity-90 transition-all text-sm">
                             View Work <ArrowRight size={15} />
                         </Link>
                         <a href="/resume.pdf" download
